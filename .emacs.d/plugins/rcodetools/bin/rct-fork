@@ -1,0 +1,6 @@
+#! C:/Apps/Ruby200-x64/bin/ruby.exe
+
+require 'rcodetools/fork'
+
+Rcodetools::Fork.start_server ARGV
+
