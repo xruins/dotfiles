@@ -232,12 +232,12 @@ fi
 # ----------------------------------------
 
 # oh-my-zsh の有効化
-#ZSH="$HOME/dotfiles/oh-my-zsh"
+ZSH="$HOME/dotfiles/oh-my-zsh"
 
 # テーマ設定
-#ZSH_THEME="agnoster"
+ZSH_THEME="agnoster"
 
 # プラグイン設定
-#plugins="git ruby gem rails"
+plugins="git ruby gem rails"
 
-#source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
