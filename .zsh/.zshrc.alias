@@ -25,3 +25,17 @@ alias du="du -h"
 alias df="df -h"
 
 alias su="su -l"
+
+
+# yum にリジポトリを有効化するaliasを追加
+[ -x $(which yum) ] && alias yumer='yum --enablerepo=remi,epel,rpmforge'
+
+# iptables --listを使用した際に自動でルール番号を表示させる
+function iptables () {
+    if [ "$1" eq "--list" ]
+    then
+        iptables $* --line-numbers
+    else
+        iptables $*
+    fi
+}
