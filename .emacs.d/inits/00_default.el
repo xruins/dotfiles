@@ -35,16 +35,26 @@
 ;; 最終行に必ず一行挿入
 (setq require-final-newline t)
 
-;; 文字コードの設定
-(prefer-coding-system 'utf-8-unix)
+;; 文字コードの設定(共通)
 (set-language-environment       "Japanese")
 (prefer-coding-system           'utf-8-unix)
-(setq                           buffer-file-coding-system 'utf-8)
-(set-buffer-file-coding-system  'utf-8)
-(set-terminal-coding-system     'utf-8)
-(set-keyboard-coding-system     'utf-8)
-(set-clipboard-coding-system    'utf-8)
 
+
+;; 文字コードの設定(環境別)
+(if (eq system-type 'windows-nt)
+    (progn
+      (set-buffer-file-coding-system  'utf-8-unix)
+      (set-terminal-coding-system     'utf-8-unix)
+      (set-keyboard-coding-system     'utf-8-unix)
+      (set-clipboard-coding-system    'utf-8-unix)
+     )
+  )
+(progn
+  (set-buffer-file-coding-system  'sjis-dos)
+  (set-terminal-coding-system     'sjis-dos)
+  (set-keyboard-coding-system     'sjis-dos)
+  (set-clipboard-coding-system    'sjis-dos)
+  ) 
 ;; ウインドウモードの際の設定
 (if window-system
     (progn
@@ -59,7 +69,7 @@
       (add-to-list 'default-frame-alist '(background-color . "black"))
       (add-to-list 'default-frame-alist '(cursor-color . "white"))
       (set-face-background 'region "navy")
-))
+      ))
 
 
 ;; 対応する括弧をハイライト
@@ -71,17 +81,17 @@
 ;; フォント設定
 
 (set-face-attribute 'default nil
-                    :family "Ricty"
-                    :height 120)
+                    :family "Ricty for Powerline"
+                    :height 110)
 (set-fontset-font (frame-parameter nil 'font)
                   'japanese-jisx0208
-                  (cons "Ricty" "iso10646-1"))
+                  (cons "Ricty for Powerline" "iso10646-1"))
 (set-fontset-font (frame-parameter nil 'font)
                   'japanese-jisx0212
-                  (cons "Ricty" "iso10646-1"))
+                  (cons "Ricty for Powerline" "iso10646-1"))
 (set-fontset-font (frame-parameter nil 'font)
                   'katakana-jisx0201
-                  (cons "Ricty" "iso10646-1"))
+                  (cons "Ricty for Powerline" "iso10646-1"))
 
 ;; フレームの設定
 (setq default-frame-alist
@@ -125,8 +135,7 @@
 ;; コピーをクリップボードと共有する
 (cond (window-system
        (setq x-select-enable-clipboard t)
-       )
-)
+       ))
 
 ;; デフォルトブラウザ変更
 (setq browse-url-browser-function 'browse-url-generic
@@ -134,7 +143,7 @@
 (when (eq system-type 'darwin)
   (add-to-list 'exec-path "/usr/local/bin")
   (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
+        browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
 
 ;; 現在行をハイライトする
 ;; (defface hlline-face
@@ -153,9 +162,6 @@
 ;; バッファ自動再読み込み
 (global-auto-revert-mode 1)
 
-;; Anything のバインド
-(define-key global-map (kbd "C-x b") 'anything)
-
 ;; yes/no を y/n に変更
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -168,7 +174,7 @@
 
 ;; 名前とメールアドレスの設定
 (setq user-full-name "Ruins")
-(setq user-mail-address "sv@ruins.mobi")
+(setq user-mail-address "ruinscorocoro@gmail.com")
 
 ;; file名の保管時に大文字、小文字を区別しない
 (setq completion-ignore-case t)
