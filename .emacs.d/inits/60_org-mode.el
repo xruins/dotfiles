@@ -6,30 +6,41 @@
 ;; (setq org-export-latex-classes nil)
 
 (require 'org-latex)
-(setq org-export-latex-listings t)
-;; (add-to-list 'org-export-latex-packages-alist
-;;              '(("AUTO" "inputenc" t)))
-(add-to-list 'org-export-latex-classes
-          '("jarticle"
-             "\\documentclass[12pt,a4paper]{jarticle}
-             [NO-DEFAULT-PACKAGES]
-             [PACKAGES]
-             [EXTRA]
-\\usepackage[dvipdfmx]{caption}
-\\usepackage[dvipdfmx]{hyperref}
-"
-             ("\\section{%s}" . "\\section*{%s}")
-             ("\\subsection{%s}" . "\\subsection*{%s}")
-             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-             ("\\paragraph{%s}" . "\\paragraph*{%s}")
-             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(require 'ox-latex)
+(require 'ox-beamer)
 
+;; クラス jarticle の設定
+(add-to-list 'org-latex-classes
+             '("jsarticle"
+               "\\documentclass{jsarticle}
+[NO-DEFAULT-PACKAGES]
+[NO-PACKAGES]
+[EXTRA]
+\\usepackage[dvipdfmx]{caption}
+\\usepackage[dvipdfmx]{hyperref}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(setq org-latex-default-class "jsarticle")
+
+;; クラス beamer の設定
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass[presentation]{beamer}
+[NO-DEFAULT-PACKAGES]
+[NO-PACKAGES]
+[EXTRA]"
+                    ("\\section{%s}" . "\\section*{%s}")
+                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
 ;; PDFの出力用コマンドの指定
 (setq org-latex-to-pdf-process
-      '("platex -interaction=batchmode %f"
-        "platex -interaction=batchmode %f"
-        "platex -interaction=batchmode %f"
+      '("platex -shell-escape -src-specials -interaction=batchmode %f"
+        "platex -shell-escape -src-specials -interaction=batchmode %f"
+        "platex -shell-escape -src-specials -interaction=batchmode %f"
         "dvipdfmx %b")
       )
 
