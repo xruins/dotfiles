@@ -9,7 +9,7 @@
 (require 'anything-show-completion)
 
 ;; anything 用のキーバインドを設定
-(define-key global-map (kbd "C-x C-f") 'anything-custom-filelist)
+(define-key global-map (kbd "C-x C-a") 'anything-custom-filelist)
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map (kbd "C-x b") 'anything)
 

@@ -41,20 +41,20 @@
 
 
 ;; 文字コードの設定(環境別)
-(if (eq system-type 'windows-nt)
-    (progn
+;; (if (eq system-type 'windows-nt)
+;;    (progn
       (set-buffer-file-coding-system  'utf-8-unix)
       (set-terminal-coding-system     'utf-8-unix)
       (set-keyboard-coding-system     'utf-8-unix)
       (set-clipboard-coding-system    'utf-8-unix)
-     )
-  )
-(progn
-  (set-buffer-file-coding-system  'sjis-dos)
-  (set-terminal-coding-system     'sjis-dos)
-  (set-keyboard-coding-system     'sjis-dos)
-  (set-clipboard-coding-system    'sjis-dos)
-  ) 
+;;     )
+;;  )
+;;(progn
+;;  (set-buffer-file-coding-system  'sjis-dos)
+;;  (set-terminal-coding-system     'sjis-dos)
+  ;; (set-keyboard-coding-system     'sjis-dos)
+  ;; (set-clipboard-coding-system    'sjis-dos)
+  ;; ) 
 ;; ウインドウモードの際の設定
 (if window-system
     (progn
