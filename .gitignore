@@ -1,4 +1,7 @@
 *~
 *\#*\#
 *.elc
-NUL
+.DS_Store
+desktop.ini
+Thumbs.db
+ac-comphist.dat
