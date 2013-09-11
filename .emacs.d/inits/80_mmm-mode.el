@@ -16,19 +16,46 @@
 
 (set-face-background 'mmm-default-submode-face "gray15")
 
-;; js in html
+;; Setting for erb (electric Ruby)
 
 (mmm-add-classes
+ '((erb-code
+    :submode ruby-mode
+    :match-face (("<%#" . mmm-comment-submode-face)
+                  ("<%=" . mmm-output-submode-face)
+                   ("<%"  . mmm-code-submode-face))
+    :front "<%[#=]?"
+    :back "%>"
+    :insert ((?% erb-code       nil @ "<%"  @ " " _ " " @ "%>" @)
+                  (?# erb-comment    nil @ "<%#" @ " " _ " " @ "%>" @)
+                       (?% erb-expression nil @ "<%=" @ " " _ " " @ "%>" @))
+    )))
 
-'((js-in-html
+(mmm-add-classes
+ '((gettext
+    :submode gettext-mode
+    :front "_(['\']"
+    :face mmm-special-submode-face
+    :back "[\"'])")))
 
-:submode js-mode
+(mmm-add-classes
+ '((html-script
+    :submode javascript-mode
+    :front "<script>"
+    :back  "</script>")))
 
-:front "<script[^>]*>\n\n</script>")))
+(add-to-list 'auto-mode-alist '("\\.erb$" . html-mode))
 
-(mmm-add-mode-ext-class nil "\\.s?html?\\(\\..+\\)?$" 'js-in-html)
+(add-hook 'html-mode-hook
+            (lambda ()
+               (setq mmm-classes '(erb-code html-js html-script gettext embedded-css))
+                (mmm-mode-on)))
 
-;; css in html
+(add-to-list 'mmm-mode-ext-classes-alist '(ruby-mode nil gettext))
+
+(global-set-key [f8] 'mmm-parse-buffer)
+
+;; CSS in html
 
 (mmm-add-classes
 
