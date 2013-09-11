@@ -4,4 +4,4 @@
 .DS_Store
 desktop.ini
 Thumbs.db
-ac-comphist.dat
+.emacs.d/ac-comphist.dat
