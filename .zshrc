@@ -222,7 +222,7 @@ function github-clone () {
 
 # .rbenv がホームディレクトリ直下にある場合
 if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
+    export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
 
