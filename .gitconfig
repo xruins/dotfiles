@@ -9,9 +9,9 @@
 	editor = emacs -q
 	pager = less
     whitespace = trailing-space,space-before-tab,indent-with-non-tab
+    excludesfile = ~/.gitignore
 [alias]
     graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
-
     st = status
     gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
     cm = commit
@@ -27,8 +27,6 @@
     rs = remote set-url
 [help]
     autocorrect = 1
+#[push]
+#	default = simple
 
-[push]
-	default = simple
-[core]
-    excludesfile = ~/.gitignore
