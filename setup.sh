@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOT_FILES=( .zshrc .gitconfig .tmux.conf .emacs.d .vimperatorrc .oh-my-zsh .subversion .zsh )
+DOT_FILES=( .zshrc .gitconfig .gitignore .tmux.conf .emacs.d .vimperatorrc .oh-my-zsh .subversion .zsh )
 
 DISCARD_FILES=( .emacs .emacs.el .emacs.elc )
 
