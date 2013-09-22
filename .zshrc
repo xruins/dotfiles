@@ -94,6 +94,8 @@ SRC_HIGHLIGHT_PATH="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 # Completion
 # ----------------------------------------
 
+fpath=(~/.zsh/completion $fpath)
+
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -106,7 +108,6 @@ compinit -u
 # TAB補完の機能をaliasにも追加
 _Z_CMD=j
 compctl -U -K _z_zsh_tab_completion $_Z_CMD
-
 
 # ----------------------------------------
 # Appearance
