@@ -57,3 +57,6 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 .project
+
+# emacs
+*.elc
