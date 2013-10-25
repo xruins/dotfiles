@@ -26,6 +26,9 @@ alias df="df -h"
 
 alias su="su -l"
 
+alias emacs="emacs -nw"
+
+
 # iptables --listを使用した際に自動でルール番号を表示させる
 function iptables () {
     if [ "$1" eq "--list" ]
