@@ -72,7 +72,7 @@ pickle-email-*.html
 auto-save-list
 tramp
 .\#*
-ac-comphist.dat
+.emacs.d/ac-comphist.dat
 
 # Org-mode
 .org-id-locations
