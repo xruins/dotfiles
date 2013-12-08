@@ -22,3 +22,6 @@
 (define-key global-map (kbd "C-x f") 'ignore)
 ;; C-. で補完の中止
 ;; (define-key ac-completing-map "\C-." 'ac-stop)
+
+;; magit の呼び出し
+(define-key global-map (kbd "C-c m") 'magit-status)
