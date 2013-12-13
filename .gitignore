@@ -15,7 +15,6 @@ Icon
 .Trashes
 
 ### Linux ###
-.*
 !.gitignore
 !.git*
 *~
@@ -72,7 +71,7 @@ pickle-email-*.html
 auto-save-list
 tramp
 .\#*
-.emacs.d/ac-comphist.dat
+ac-comphist.dat
 
 # Org-mode
 .org-id-locations
