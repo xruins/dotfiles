@@ -248,6 +248,9 @@ ZSH="$HOME/dotfiles/oh-my-zsh"
 # テーマ設定
 ZSH_THEME="agnoster"
 
+# 自動アップデートの無効化
+export DISABLE_AUTO_UPDATE="true"
+
 # プラグイン設定
 plugins="git ruby gem rails"
 
