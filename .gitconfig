@@ -27,6 +27,5 @@
     rs = remote set-url
 [help]
     autocorrect = 1
-#[push]
-#	default = simple
-
+[push]
+	default = matching
