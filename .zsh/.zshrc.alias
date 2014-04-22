@@ -7,6 +7,7 @@ setopt complete_aliases # aliased ls needs if file/dir completions work
 
 alias where="command -v"
 
+# ディストリビューションに合わせてlsのaliais
 case "${OSTYPE}" in
     freebsd*|darwin*)
         alias ls="ls -G -w -F"
@@ -28,6 +29,7 @@ alias su="su -l"
 
 alias emacs="emacs -nw"
 
+alias g="git"
 
 # iptables --listを使用した際に自動でルール番号を表示させる
 function iptables () {
