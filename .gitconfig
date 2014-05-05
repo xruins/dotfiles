@@ -26,6 +26,7 @@
     rr = remote rm
     rs = remote set-url
     tb = topic-branch
+    rd = rm $(git ls-files --deleted)
 [help]
     autocorrect = 1
 [push]
