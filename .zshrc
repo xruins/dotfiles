@@ -21,10 +21,10 @@ setopt share_history # share command history data
 export CASE_SENSITIVE="false"
 
 # MAKEOPTS
-export MAKEOPTS="-j4"
+export MAKEOPTS="-j0"
 
 # パスの設定
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+#export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 
 # ----------------------------------------
@@ -233,9 +233,10 @@ function github-clone () {
 
 # .rbenv がホームディレクトリ直下にある場合
 if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+    export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
+
 
 
 # ----------------------------------------
