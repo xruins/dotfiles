@@ -6,6 +6,17 @@
 " コマンドの入力時にIMEを無効化
 :style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
+
+" 入力欄に自動フォーカスしない
+set focuscontent
+
+" ビジュアルベルを表示しない
+set visualbell
+highlight Bell display:none
+
+" :oなどでの補完候補をサーチエンジン、履歴に限定
+set complete=sl
+
 "============================
 " Keybind
 "============================
