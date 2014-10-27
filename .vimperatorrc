@@ -1,8 +1,28 @@
+
+"============================
+" General
+"============================
+
 " コマンドの入力時にIMEを無効化
 :style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+
+
+" 入力欄に自動フォーカスしない
+set focuscontent
+
+" ビジュアルベルを表示しない
+set visualbell
+highlight Bell display:none
+
+" :oなどでの補完候補をサーチエンジン、履歴に限定
+set complete=sl
+
+"============================
+" Keybind
+"============================
+
 " 選択文字列ののコピーを <C-c> に割り当て
 map <C-c> :echo Yank!<CR>Y
-
 
 " j/k でのスクロール幅を 1行 から 3行 に変更
 map j 3<C-e>
@@ -25,6 +45,11 @@ map <Right> gt
 map <S-Right> :tabmove! +1<CR>
 map <S-Left>  :tabmove! -1<CR>
 
+
+"============================
+" Follow hint
+"============================
+
 " Follow hint の表示を大文字にする
 let g:hi
 
@@ -32,7 +57,16 @@ let g:hi
 set hintchars=ifjklasdhguonmerwc
 
 " Follow hint の表示を大きくする
-hi Hint z-index:5000; font-size:14px; color:white; background-color:red; border-color:ButtonShadow; border-width:0px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
+hi Hint z-index:5000; font-size:14px; color:white; background-color:red; border-color:ButtonShadow; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
+
+"============================
+" qmarks
+"============================
+qmark m https://mail.google.com/
+qmark f http://cloud.feedly.com/#latest
+qmark p http://getpocket.com/a/queue
+qmark k http://wikiwiki.jp/kancolle/
+qmark u http://www.ubi.cs.ritsumei.ac.jp/inner/pukiwiki/
 
 " 読み込んだ事を出力
-echo .vimperatorrc sourced
+echo ".vimperatorrc loaded."
