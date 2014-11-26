@@ -72,6 +72,7 @@ auto-save-list
 tramp
 .\#*
 ac-comphist.dat
+flycheck_*
 
 # Org-mode
 .org-id-locations
