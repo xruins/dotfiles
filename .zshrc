@@ -237,7 +237,14 @@ if [ -d $HOME/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
+# ----------------------------------------
+#  Cask (emacs)
+# ----------------------------------------
 
+# .cask がホームディレクトリ直下にある場合
+if [ -d $HOME/.cask ]; then
+    export PATH="$HOME/.cask/bin:$PATH"
+fi
 
 # ----------------------------------------
 # npm
