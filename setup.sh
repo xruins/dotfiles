@@ -20,3 +20,18 @@ do
 done
 
 touch ~/.z
+
+# Cask のインストール
+if [ !-d $HOME/.cask ]; then
+    echo 'install cask? (Y/n)'
+    read ANSWER
+
+    if [ $ANSWER -eq 'Y' ]; then
+        install_cask()
+    fi
+fi
+
+
+function install_cask() {
+    curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
+}
