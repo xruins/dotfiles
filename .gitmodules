@@ -1,6 +1,6 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
-	url = git@github.com:xRuins/.emacs.d.git
+	url = https://github.com/xRuins/.emacs.d
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
-	url = git@github.com:robbyrussell/oh-my-zsh.git
+	url = https://github.com/robbyrussell/oh-my-zsh.git
