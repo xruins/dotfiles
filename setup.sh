@@ -12,7 +12,10 @@ do
    fi
 done
 
+
 # シンボリックリンクをはる
+echo 'Make symbolic links...'
+
 for file in ${DOT_FILES[@]}
 do
     rm -rf $HOME/$file
@@ -21,13 +24,18 @@ done
 
 touch ~/.z
 
+# Submodule の初期化
+echo 'Fetching submodules...'
+git submodule init
+git submodule update --remote
+
 # Cask のインストール
 if [ !-d $HOME/.cask ]; then
-    echo 'install cask? (Y/n)'
+    echo "Cask command doesn\'t seems to be executable. install cask? (Y/n)"
     read ANSWER
 
     if [ $ANSWER -eq 'Y' ]; then
-        install_cask()
+        install_cask();
     fi
 fi
 
