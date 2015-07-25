@@ -20,9 +20,6 @@ setopt share_history # share command history data
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
-# MAKEOPTS
-export MAKEOPTS="-j0"
-
 # パスの設定
 #export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
