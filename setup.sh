@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 DOT_FILES=( .zshrc .gitconfig .gitignore .tmux.conf .emacs.d .vimperatorrc .oh-my-zsh .subversion .zsh )
 
@@ -28,18 +28,3 @@ touch ~/.z
 echo 'Fetching submodules...'
 git submodule init
 git submodule update --remote
-
-# Cask のインストール
-if [ !-d $HOME/.cask ]; then
-    echo "Cask command doesn\'t seems to be executable. install cask? (Y/n)"
-    read ANSWER
-
-    if [ $ANSWER -eq 'Y' ]; then
-        install_cask();
-    fi
-fi
-
-
-function install_cask() {
-    curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-}
