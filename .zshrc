@@ -188,6 +188,18 @@ function precmd () {
     _z --add "$(pwd -P)"
 }
 
+# brewupdall - brewで全部アップデート[グレード]する
+function brewupdall() {
+    brew update
+    if [ $? -ne 0 ]; then
+        echo "Failed to brew update."
+        return 1
+    fi
+    brew upgrade --all
+    brew file cask_upgrade -C
+    brew cleanup
+}
+
 # own - arg に指定されたファイルの所有者、所有グループを実行中のユーザにする
 # usage : own [path]
 function own () {
@@ -251,6 +263,7 @@ if [ -x npm ]; then
     export PATH=/usr/local/share/npm/bin:$PATH
     export NODE_PATH=/usr/local/lib/node_modules
 fi
+
 # ----------------------------------------
 #  oh-my-zsh
 # ----------------------------------------
