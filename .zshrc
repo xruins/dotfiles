@@ -20,10 +20,6 @@ setopt share_history # share command history data
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
-# パスの設定
-#export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-
-
 # ----------------------------------------
 # zsh built-in function
 # ----------------------------------------
@@ -98,7 +94,6 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-#zstyle ':completion:*' verbose true
 autoload -U compinit
 compinit -u
 
@@ -140,18 +135,6 @@ case "$TERM" in
     PROMPT='%m:%c%# '
     ;;
 esac
-
-# case "${TERM}" in
-# kterm*|xterm*)
-#   precmd() {
-#     echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-#   }
-#   export LSCOLORS=exfxcxdxbxegedabagacad
-#   export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#   zstyle ':completion:*' list-colors \
-#     'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-#   ;;
-# esac
 
 # ----------------------------------------
 # Functions
@@ -212,17 +195,6 @@ function own () {
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 source ~/dotfiles/.zsh/z.sh
-
-
-# ----------------------------------------
-#  Git
-# ----------------------------------------
-
-# github からの clone 用関数
-function github-clone () {
-    git clone git://github.com/$*
-}
-
 
 # ----------------------------------------
 #  rbenv
