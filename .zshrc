@@ -188,18 +188,6 @@ function precmd () {
     _z --add "$(pwd -P)"
 }
 
-# brewupdall - brewで全部アップデート[グレード]する
-function brewupdall() {
-    brew update
-    if [ $? -ne 0 ]; then
-        echo "Failed to brew update."
-        return 1
-    fi
-    brew upgrade --all
-    brew file cask_upgrade -C
-    brew cleanup
-}
-
 # own - arg に指定されたファイルの所有者、所有グループを実行中のユーザにする
 # usage : own [path]
 function own () {
@@ -244,6 +232,30 @@ function github-clone () {
 if [ -d $HOME/.rbenv ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
+fi
+
+# ----------------------------------------
+# Homebrew
+# ----------------------------------------
+
+# brewコマンドが実行可能な場合のみ適用する
+if [ -x brew ]; then
+    # brewupdall - brewで全部アップデート[グレード]する
+    function brewupdall() {
+        brew update
+        if [ $? -ne 0 ]; then
+            echo "Failed to brew update."
+            return 1
+        fi
+        brew upgrade --all
+        brew file cask_upgrade -C
+        brew cleanup
+    }
+    
+    # brew file 用のwrapper
+    if [ -f $(brew --prefix)/etc/brew-wrap ];then
+        source $(brew --prefix)/etc/brew-wrap
+    fi
 fi
 
 # ----------------------------------------
