@@ -20,6 +20,7 @@ setopt share_history # share command history data
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
+
 # ----------------------------------------
 # zsh built-in function
 # ----------------------------------------
@@ -197,6 +198,15 @@ function own () {
 source ~/dotfiles/.zsh/z.sh
 
 # ----------------------------------------
+#  Java
+# ----------------------------------------
+
+# Set JAVA_HOME when works on Mac
+if [ "$(uname)" = 'Darwin' ]; then
+    export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home`
+fi
+
+# ----------------------------------------
 #  rbenv
 # ----------------------------------------
 
@@ -204,10 +214,21 @@ source ~/dotfiles/.zsh/z.sh
 if [ -d $HOME/.rbenv ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
+
+    init_rbenv-binstubs()
 fi
 
+# rbenv binstubs setting
+function init_rbenv-binstubs () {
+    if [ -d $HOME/.rbenv/plugins/rbenv-binstubs ]; then
+	export PATH=./vendor/bin:$PATH
+	alias be='bundle exec'
+    fi
+}
+
+
 # ----------------------------------------
-# Homebrew
+#  Homebrew
 # ----------------------------------------
 
 # brewコマンドが実行可能な場合のみ適用する
