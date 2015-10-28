@@ -210,14 +210,6 @@ fi
 #  rbenv
 # ----------------------------------------
 
-# .rbenv がホームディレクトリ直下にある場合
-if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-
-    init_rbenv-binstubs()
-fi
-
 # rbenv binstubs setting
 function init_rbenv-binstubs () {
     if [ -d $HOME/.rbenv/plugins/rbenv-binstubs ]; then
@@ -226,6 +218,13 @@ function init_rbenv-binstubs () {
     fi
 }
 
+# .rbenv がホームディレクトリ直下にある場合
+if [ -d $HOME/.rbenv ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+
+    init_rbenv-binstubs
+fi
 
 # ----------------------------------------
 #  Homebrew
