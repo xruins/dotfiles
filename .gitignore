@@ -77,3 +77,4 @@ flycheck_*
 # Org-mode
 .org-id-locations
 *_archive
+.zshrc.env

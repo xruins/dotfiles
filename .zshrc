@@ -276,3 +276,9 @@ export DISABLE_AUTO_UPDATE="true"
 plugins="git ruby gem rails"
 
 source $ZSH/oh-my-zsh.sh
+
+# 環境固有の.zshrcファイルの有効化
+ZSHRC_ENV_PATH='./.zshrc.env'
+if [ -x $ZSHRC_ENV_PATH ]; then
+    source $ZSHRC_ENV_PATH
+fi
