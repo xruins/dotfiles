@@ -79,3 +79,4 @@ flycheck_*
 *_archive
 .byebug_history
 .tags*
+.zshrc.env

@@ -6,3 +6,6 @@
 	path = oh-my-zsh
 	url = git@github.com:robbyrussell/oh-my-zsh
 	branch = master
+[submodule "zgen"]
+	path = zgen
+	url = https://github.com/tarjoilija/zgen
