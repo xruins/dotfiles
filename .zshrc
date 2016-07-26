@@ -198,27 +198,3 @@ if [ -x brew ]; then
         source $(brew --prefix)/etc/brew-wrap
     fi
 fi
-
-# ----------------------------------------
-#  oh-my-zsh
-# ----------------------------------------
-
-# oh-my-zsh の有効化
-ZSH="$HOME/dotfiles/oh-my-zsh"
-
-# テーマ設定
-ZSH_THEME="agnoster"
-
-# 自動アップデートの無効化
-export DISABLE_AUTO_UPDATE="true"
-
-# プラグイン設定
-plugins="git ruby gem rails"
-
-source $ZSH/oh-my-zsh.sh
-
-# 環境固有の.zshrcファイルの有効化
-ZSHRC_ENV_PATH='~/.zshrc.env'
-if [ -e $ZSHRC_ENV_PATH ]; then
-    source $ZSHRC_ENV_PATH
-fi
