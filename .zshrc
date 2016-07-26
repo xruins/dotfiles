@@ -16,10 +16,8 @@ SAVEHIST=6000000
 setopt hist_ignore_dups # ignore duplication command history list
 setopt share_history # share command history data
 
-
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
-
 
 # ----------------------------------------
 # zsh built-in function
@@ -50,14 +48,12 @@ unsetopt bg_nice
 setopt braceccl
 
 # vcs_info 設定
-
 RPROMPT=""
 
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors
-
 
 # ----------------------------------------
 # Keybind
@@ -82,7 +78,6 @@ bindkey "\\en" history-beginning-search-forward-end
 export LESS='-R'
 SRC_HIGHLIGHT_PATH="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 [ -x ${SRC_HIGHLIGHT_PATH} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH} %s"
-
 
 # ----------------------------------------
 # Completion
@@ -172,21 +167,6 @@ function precmd () {
     _z --add "$(pwd -P)"
 }
 
-# own - arg に指定されたファイルの所有者、所有グループを実行中のユーザにする
-# usage : own [path]
-function own () {
-    if [ $ -ne 1 ] ; then
-        echo "usage : own [path]"
-    fi
-    if [ -d $1 -o -f $1 ] ; then
-        sudo chgrp $(id -un) $1
-        sudo chown $(id -un) $1
-    else
-        echo "File \"$1\" is not found." >> /dev/null
-    fi
-}
-
-
 # ----------------------------------------
 #  include
 # ----------------------------------------
@@ -198,32 +178,13 @@ function own () {
 source ~/dotfiles/.zsh/z.sh
 
 # ----------------------------------------
-#  Java
-# ----------------------------------------
-
-# Set JAVA_HOME when works on Mac
-if [ "$(uname)" = 'Darwin' ]; then
-    export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home`
-fi
-
-# ----------------------------------------
 #  rbenv
 # ----------------------------------------
-
-# rbenv binstubs setting
-function init_rbenv-binstubs () {
-    if [ -d $HOME/.rbenv/plugins/rbenv-binstubs ]; then
-	export PATH=./vendor/bin:$PATH
-	alias be='bundle exec'
-    fi
-}
 
 # .rbenv がホームディレクトリ直下にある場合
 if [ -d $HOME/.rbenv ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
-
-    init_rbenv-binstubs
 fi
 
 # ----------------------------------------
@@ -232,31 +193,10 @@ fi
 
 # brewコマンドが実行可能な場合のみ適用する
 if [ -x brew ]; then
-    # brewupdall - brewで全部アップデート[グレード]する
-    function brewupdall() {
-        brew update
-        if [ $? -ne 0 ]; then
-            echo "Failed to brew update."
-            return 1
-        fi
-        brew upgrade --all
-        brew file cask_upgrade -C
-        brew cleanup
-    }
-    
     # brew file 用のwrapper
     if [ -f $(brew --prefix)/etc/brew-wrap ];then
         source $(brew --prefix)/etc/brew-wrap
     fi
-fi
-
-# ----------------------------------------
-# npm
-# ----------------------------------------
-
-if [ -x npm ]; then
-    export PATH=/usr/local/share/npm/bin:$PATH
-    export NODE_PATH=/usr/local/lib/node_modules
 fi
 
 # ----------------------------------------
