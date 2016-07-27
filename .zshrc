@@ -83,6 +83,12 @@ setopt noautoremoveslash     # ディレクトリ名の末尾の/を除去しな
 setopt nolistbeep            # 補完リストを表示した際のbeepを無効化
 setopt braceccl              # ブレース展開の有効化
 setopt complete_aliases      # aliasも補完対象とする
+setopt share_history         # 端末間で履歴を共有
+# 履歴に残すコマンドの重複を排除
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
+
 unsetopt bg_nice             # バックグラウンドジョブを通常の優先度で実行
 
 # vcs_info 設定
