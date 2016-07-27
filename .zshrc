@@ -212,6 +212,15 @@ function precmd () {
 
 source ~/dotfiles/.zsh/z.sh
 
+# -------------------------------------
+# named directory
+# -------------------------------------
+
+setopt CDABLE_VARS
+hash -d desktop=$HOME/Desktop
+hash -d doc=$HOME/Documents
+hash -d repos=$HOME/repos
+
 # ----------------------------------------
 #  rbenv
 # ----------------------------------------
