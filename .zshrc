@@ -211,6 +211,16 @@ function precmd () {
     _z --add "$(pwd -P)"
 }
 
+#----------------------------------------
+# smart
+#----------------------------------------
+
+autoload -Uz smart-insert-last-word
+# [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
+zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+zle -N insert-last-word smart-insert-last-word
+bindkey '^]' insert-last-word
+
 # ----------------------------------------
 #  include
 # ----------------------------------------
