@@ -20,6 +20,39 @@ setopt share_history # share command history data
 export CASE_SENSITIVE="false"
 
 # ----------------------------------------
+#  zgen
+# ----------------------------------------
+export ZGEN_RESET_ON_CHANGE=($HOME/.zshrc)
+source $HOME/dotfiles/zgen/zgen.zsh
+
+if ! zgen saved; then
+	echo "Creating a zgen save"
+
+	zgen prezto editor key-bindings 'emacs'
+	zgen prezto prompt theme 'powerline'
+	zgen prezto '*:*' case-sensitive 'no'
+	zgen prezto '*:*' color 'yes'
+
+	zgen prezto
+	zgen prezto git
+	zgen prezto command-not-found
+	zgen prezto tmux
+	zgen prezto fasd
+	zgen prezto history-substring-search
+	zgen prezto syntax-highlighting
+
+	#zgen load djui/alias-tips
+	zgen load caarlos0/zsh-git-sync
+	zgen load TBSliver/zsh-plugin-colored-man
+	zgen load mafredri/zsh-async
+
+	zgen load zsh-users/zsh-syntax-highlighting
+	zgen load tarruda/zsh-autosuggestions
+
+	zgen save
+fi
+
+# ----------------------------------------
 # zsh built-in function
 # ----------------------------------------
 
