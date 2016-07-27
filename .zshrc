@@ -76,10 +76,13 @@ setopt list_packed           # リストを詰めて表示
 setopt auto_cd               # ディレクトリ名だけでcd
 setopt auto_pushd            # pushdの自動化(cd -[tab]用)
 setopt correct               # コマンド名をtypoした時に修正するか尋ねる
+# setopt prompt のスタイル変更
+SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [No/Yes/Abort/Edit]"
 setopt list_packed           # 補完リストを詰めて表示する
 setopt noautoremoveslash     # ディレクトリ名の末尾の/を除去しない
 setopt nolistbeep            # 補完リストを表示した際のbeepを無効化
 setopt braceccl              # ブレース展開の有効化
+setopt complete_aliases      # aliasも補完対象とする
 unsetopt bg_nice             # バックグラウンドジョブを通常の優先度で実行
 
 # vcs_info 設定
