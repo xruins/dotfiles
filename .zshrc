@@ -13,8 +13,6 @@ export EDITOR='emacs'
 HISTFILE=~/.zsh_history
 HISTSIZE=6000000
 SAVEHIST=6000000
-setopt hist_ignore_dups # ignore duplication command history list
-setopt share_history # share command history data
 
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
@@ -22,14 +20,13 @@ export CASE_SENSITIVE="false"
 # ----------------------------------------
 #  zgen
 # ----------------------------------------
-export ZGEN_RESET_ON_CHANGE=($HOME/.zshrc)
-source $HOME/dotfiles/zgen/zgen.zsh
+source $HOME/dotfiles/.zgen/zgen.zsh
 
 if ! zgen saved; then
 	echo "Creating a zgen save"
 
 	zgen prezto editor key-bindings 'emacs'
-	zgen prezto prompt theme 'powerline'
+	zgen prezto prompt theme 'paradox'
 	zgen prezto '*:*' case-sensitive 'no'
 	zgen prezto '*:*' color 'yes'
 
@@ -244,11 +241,8 @@ hash -d repos=$HOME/repos
 #  rbenv
 # ----------------------------------------
 
-# .rbenv がホームディレクトリ直下にある場合
-if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-fi
+[ -d $HOME/.rbenv ] && export PATH="$HOME/.rbenv/bin:$PATH"
+[ -x rbenv ] && eval "$(rbenv init -)"
 
 # ----------------------------------------
 #  Homebrew
