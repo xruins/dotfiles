@@ -255,3 +255,11 @@ if [ -x brew ]; then
         source $(brew --prefix)/etc/brew-wrap
     fi
 fi
+
+# ----------------------------------------
+#  zsh prompt theme init
+# ----------------------------------------
+
+autoload -Uz promptinit
+promptinit
+prompt paradox
