@@ -13,51 +13,88 @@ export EDITOR='emacs'
 HISTFILE=~/.zsh_history
 HISTSIZE=6000000
 SAVEHIST=6000000
-setopt hist_ignore_dups # ignore duplication command history list
-setopt share_history # share command history data
-
 
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
+# ----------------------------------------
+#  zgen
+# ----------------------------------------
+source $HOME/dotfiles/.zgen/zgen.zsh
+
+if ! zgen saved; then
+	echo "Creating a zgen save"
+
+	zgen prezto editor key-bindings 'emacs'
+	zgen prezto prompt theme 'paradox'
+	zgen prezto '*:*' case-sensitive 'no'
+	zgen prezto '*:*' color 'yes'
+
+	zgen prezto
+	zgen prezto git
+	zgen prezto command-not-found
+	zgen prezto tmux
+	zgen prezto fasd
+	zgen prezto history-substring-search
+	zgen prezto syntax-highlighting
+
+	#zgen load djui/alias-tips
+	zgen load caarlos0/zsh-git-sync
+	zgen load TBSliver/zsh-plugin-colored-man
+	zgen load mafredri/zsh-async
+
+	zgen load zsh-users/zsh-syntax-highlighting
+	zgen load tarruda/zsh-autosuggestions
+
+	zgen save
+fi
 
 # ----------------------------------------
 # zsh built-in function
 # ----------------------------------------
 
-# auto change directory
-setopt auto_cd
+# 補完機能の強化
+autoload -U compinit
+compinit
 
-# auto directory pushd that you can get dirs list by cd -[tab]
-setopt auto_pushd
+setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt mark_dirs             # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
+setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
+setopt auto_menu             # 補完キー連打で順に補完候補を自動で補完
+setopt auto_param_keys       # カッコの対応などを自動的に補完
+setopt interactive_comments  # コマンドラインでも # 以降をコメントと見なす
+setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt complete_in_word      # 語の途中でもカーソル位置で補完
+setopt always_last_prompt    # カーソル位置は保持したままファイル名一覧を順次その場で表示
+setopt print_eight_bit       # 日本語ファイル名等8ビットを通す
+setopt extended_glob         # 拡張グロブで補完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
+setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
+setopt list_packed           # リストを詰めて表示
+setopt auto_cd               # ディレクトリ名だけでcd
+setopt auto_pushd            # pushdの自動化(cd -[tab]用)
+setopt correct               # コマンド名をtypoした時に修正するか尋ねる
+# setopt prompt のスタイル変更
+SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [No/Yes/Abort/Edit]"
+setopt list_packed           # 補完リストを詰めて表示する
+setopt noautoremoveslash     # ディレクトリ名の末尾の/を除去しない
+setopt nolistbeep            # 補完リストを表示した際のbeepを無効化
+setopt braceccl              # ブレース展開の有効化
+setopt complete_aliases      # aliasも補完対象とする
+setopt share_history         # 端末間で履歴を共有
+# 履歴に残すコマンドの重複を排除
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
 
-# command correct edition before each completion attempt
-setopt correct
-
-# compacked complete list display
-setopt list_packed
-
-# no remove postfix slash of command line
-setopt noautoremoveslash
-
-# no beep sound when complete list displayed
-setopt nolistbeep
-
-# すべてのバックグラウンドジョブを低優先度で実行を解除
-unsetopt bg_nice
-
-# ブレース展開の有効化
-setopt braceccl
+unsetopt bg_nice             # バックグラウンドジョブを通常の優先度で実行
 
 # vcs_info 設定
-
 RPROMPT=""
 
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors
-
 
 # ----------------------------------------
 # Keybind
@@ -82,7 +119,6 @@ bindkey "\\en" history-beginning-search-forward-end
 export LESS='-R'
 SRC_HIGHLIGHT_PATH="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 [ -x ${SRC_HIGHLIGHT_PATH} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH} %s"
-
 
 # ----------------------------------------
 # Completion
@@ -172,20 +208,15 @@ function precmd () {
     _z --add "$(pwd -P)"
 }
 
-# own - arg に指定されたファイルの所有者、所有グループを実行中のユーザにする
-# usage : own [path]
-function own () {
-    if [ $ -ne 1 ] ; then
-        echo "usage : own [path]"
-    fi
-    if [ -d $1 -o -f $1 ] ; then
-        sudo chgrp $(id -un) $1
-        sudo chown $(id -un) $1
-    else
-        echo "File \"$1\" is not found." >> /dev/null
-    fi
-}
+#----------------------------------------
+# smart
+#----------------------------------------
 
+autoload -Uz smart-insert-last-word
+# [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
+zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+zle -N insert-last-word smart-insert-last-word
+bindkey '^]' insert-last-word
 
 # ----------------------------------------
 #  include
@@ -197,34 +228,21 @@ function own () {
 
 source ~/dotfiles/.zsh/z.sh
 
-# ----------------------------------------
-#  Java
-# ----------------------------------------
+# -------------------------------------
+# named directory
+# -------------------------------------
 
-# Set JAVA_HOME when works on Mac
-if [ "$(uname)" = 'Darwin' ]; then
-    export JAVA_HOME=`/System/Library/Frameworks/JavaVM.framework/Versions/A/Commands/java_home`
-fi
+setopt CDABLE_VARS
+hash -d desktop=$HOME/Desktop
+hash -d doc=$HOME/Documents
+hash -d repos=$HOME/repos
 
 # ----------------------------------------
 #  rbenv
 # ----------------------------------------
 
-# rbenv binstubs setting
-function init_rbenv-binstubs () {
-    if [ -d $HOME/.rbenv/plugins/rbenv-binstubs ]; then
-	export PATH=./vendor/bin:$PATH
-	alias be='bundle exec'
-    fi
-}
-
-# .rbenv がホームディレクトリ直下にある場合
-if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-
-    init_rbenv-binstubs
-fi
+[ -d $HOME/.rbenv ] && export PATH="$HOME/.rbenv/bin:$PATH"
+[ -x rbenv ] && eval "$(rbenv init -)"
 
 # ----------------------------------------
 #  Homebrew
@@ -232,18 +250,6 @@ fi
 
 # brewコマンドが実行可能な場合のみ適用する
 if [ -x brew ]; then
-    # brewupdall - brewで全部アップデート[グレード]する
-    function brewupdall() {
-        brew update
-        if [ $? -ne 0 ]; then
-            echo "Failed to brew update."
-            return 1
-        fi
-        brew upgrade --all
-        brew file cask_upgrade -C
-        brew cleanup
-    }
-    
     # brew file 用のwrapper
     if [ -f $(brew --prefix)/etc/brew-wrap ];then
         source $(brew --prefix)/etc/brew-wrap
@@ -251,34 +257,15 @@ if [ -x brew ]; then
 fi
 
 # ----------------------------------------
-# npm
+#  golang
 # ----------------------------------------
 
-if [ -x npm ]; then
-    export PATH=/usr/local/share/npm/bin:$PATH
-    export NODE_PATH=/usr/local/lib/node_modules
-fi
+[ -x go ] && export GOPATH=$HOME/.go
 
 # ----------------------------------------
-#  oh-my-zsh
+#  zsh prompt theme init
 # ----------------------------------------
 
-# oh-my-zsh の有効化
-ZSH="$HOME/dotfiles/oh-my-zsh"
-
-# テーマ設定
-ZSH_THEME="agnoster"
-
-# 自動アップデートの無効化
-export DISABLE_AUTO_UPDATE="true"
-
-# プラグイン設定
-plugins="git ruby gem rails"
-
-source $ZSH/oh-my-zsh.sh
-
-# 環境固有の.zshrcファイルの有効化
-ZSHRC_ENV_PATH='~/.zshrc.env'
-if [ -e $ZSHRC_ENV_PATH ]; then
-    source $ZSHRC_ENV_PATH
-fi
+autoload -Uz promptinit
+promptinit
+prompt paradox

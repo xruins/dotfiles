@@ -3,11 +3,10 @@
 #
 # expand aliases before completing
 #
-setopt complete_aliases # aliased ls needs if file/dir completions work
 
 alias where="command -v"
 
-# ディストリビューションに合わせてlsのaliais
+# ディストリビューションに合わせてlsのalias
 case "${OSTYPE}" in
     freebsd*|darwin*)
         alias ls="ls -G -w -F"
@@ -17,11 +16,13 @@ case "${OSTYPE}" in
         ;;
 esac
 
+# ls
 alias la="ls -aF"
 alias ll="ls -lF"
 alias lal="ls -la"
 alias lla="ls -la"
 
+# misc unix commands
 alias du="du -h"
 alias df="df -h"
 
@@ -30,6 +31,17 @@ alias su="su -l"
 alias emacs="emacs -nw"
 
 alias g="git"
+
+# ruby/rails
+alias devlog='tail -f log/development.log'
+alias prodlog='tail -f log/production.log'
+alias testlog='tail -f log/test.log'
+
+alias -g RED='RAILS_ENV=development'
+alias -g REP='RAILS_ENV=production'
+alias -g RET='RAILS_ENV=test'
+alias -g REV='RAILS_ENV=vagrant'
+alias -g REMT='RAILS_ENV=master_test'
 
 # iptables --listを使用した際に自動でルール番号を表示させる
 function iptables () {
