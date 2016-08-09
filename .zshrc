@@ -240,8 +240,10 @@ hash -d repos=$HOME/repos
 #  rbenv
 # ----------------------------------------
 
-[ -d $HOME/.rbenv ] && export PATH="$HOME/.rbenv/bin:$PATH"
-[ -x rbenv ] && eval "$(rbenv init -)"
+if [ -d $HOME/.rbenv ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
 
 # ----------------------------------------
 #  Homebrew
