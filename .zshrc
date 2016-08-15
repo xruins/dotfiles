@@ -62,7 +62,6 @@ setopt mark_dirs             # ファイル名の展開でディレクトリに�
 setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 setopt auto_menu             # 補完キー連打で順に補完候補を自動で補完
 setopt auto_param_keys       # カッコの対応などを自動的に補完
-setopt interactive_comments  # コマンドラインでも # 以降をコメントと見なす
 setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt complete_in_word      # 語の途中でもカーソル位置で補完
 setopt always_last_prompt    # カーソル位置は保持したままファイル名一覧を順次その場で表示
@@ -77,7 +76,6 @@ SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [No/Yes/Abort/Edit]"
 setopt list_packed           # 補完リストを詰めて表示する
 setopt noautoremoveslash     # ディレクトリ名の末尾の/を除去しない
 setopt nolistbeep            # 補完リストを表示した際のbeepを無効化
-setopt braceccl              # ブレース展開の有効化
 setopt complete_aliases      # aliasも補完対象とする
 setopt share_history         # 端末間で履歴を共有
 # 履歴に残すコマンドの重複を排除
@@ -211,11 +209,11 @@ function precmd () {
 # smart
 #----------------------------------------
 
-autoload -Uz smart-insert-last-word
+# autoload -Uz smart-insert-last-word
 # [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
-zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
-zle -N insert-last-word smart-insert-last-word
-bindkey '^]' insert-last-word
+# zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+# zle -N insert-last-word smart-insert-last-word
+# bindkey '^]' insert-last-word
 
 # ----------------------------------------
 #  include
