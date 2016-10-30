@@ -5,7 +5,6 @@
 autoload colors
 colors
 
-export LANG='ja_JP.UTF-8'
 export PAGER='less'
 export EDITOR='emacs'
 
