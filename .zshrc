@@ -96,9 +96,6 @@ autoload -Uz colors
 # Keybind
 # ----------------------------------------
 
-# emacs like ( C-aで文頭、C-eで文末など )
-bindkey -e
-
 # ^P, ^N での検索
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -203,16 +200,6 @@ alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,lzma,tbz2,rar}=extract
 function precmd () {
     _z --add "$(pwd -P)"
 }
-
-#----------------------------------------
-# smart
-#----------------------------------------
-
-# autoload -Uz smart-insert-last-word
-# [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
-# zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
-# zle -N insert-last-word smart-insert-last-word
-# bindkey '^]' insert-last-word
 
 # ----------------------------------------
 #  include
