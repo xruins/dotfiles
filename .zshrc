@@ -49,6 +49,17 @@ if ! zgen saved; then
 fi
 
 # ----------------------------------------
+# path configuration
+# ----------------------------------------
+
+ADDITIONAL_PATH=($HOME/local/bin $HOME/bin)
+for p in $ADDITIONAL_PATH; do
+    if [ -e $p ]; then
+	export PATH="$p:$PATH"
+    fi
+done
+
+# ----------------------------------------
 # zsh built-in function
 # ----------------------------------------
 
