@@ -117,8 +117,14 @@ bindkey "\\en" history-beginning-search-forward-end
 # ----------------------------------------
 
 export LESS='-R'
+
+# for unix
 SRC_HIGHLIGHT_PATH="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 [ -x ${SRC_HIGHLIGHT_PATH} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH} %s"
+
+# for macOS w/ homebrew script
+SRC_HIGHLIGHT_PATH_OSX="/usr/local/share/source-highlight/src-hilite-lesspipe.sh"
+[ -x ${SRC_HIGHLIGHT_PATH_OSX} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH} %s"
 
 # ----------------------------------------
 # Completion
