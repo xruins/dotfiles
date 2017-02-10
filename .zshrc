@@ -63,10 +63,6 @@ done
 # zsh built-in function
 # ----------------------------------------
 
-# 補完機能の強化
-autoload -U compinit
-compinit
-
 setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt mark_dirs             # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
 setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
@@ -136,7 +132,7 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 autoload -U compinit
-compinit -u
+compinit -u -C
 
 # TAB補完の機能をaliasにも追加
 _Z_CMD=j
