@@ -10,8 +10,8 @@ export EDITOR='emacs'
 
 # ヒストリ
 HISTFILE=~/.zsh_history
-HISTSIZE=6000000
-SAVEHIST=6000000
+HISTSIZE=16384
+SAVEHIST=16394
 
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
@@ -24,17 +24,16 @@ source $HOME/dotfiles/.zgen/zgen.zsh
 if ! zgen saved; then
 	echo "Creating a zgen save"
 
+	zgen prezto
 	zgen prezto editor key-bindings 'emacs'
-	zgen prezto prompt theme 'paradox'
 	zgen prezto '*:*' case-sensitive 'no'
 	zgen prezto '*:*' color 'yes'
 
-	zgen prezto
 	zgen prezto git
+	zgen prezto python
 	zgen prezto command-not-found
 	zgen prezto tmux
 	zgen prezto fasd
-	zgen prezto history-substring-search
 	zgen prezto syntax-highlighting
 
 	#zgen load djui/alias-tips
@@ -45,6 +44,7 @@ if ! zgen saved; then
 	zgen load zsh-users/zsh-syntax-highlighting
 	zgen load tarruda/zsh-autosuggestions
 
+	zstyle ':prezto:module:prompt' theme 'paradox'
 	zgen save
 fi
 
@@ -72,7 +72,7 @@ setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr �
 setopt complete_in_word      # 語の途中でもカーソル位置で補完
 setopt always_last_prompt    # カーソル位置は保持したままファイル名一覧を順次その場で表示
 setopt print_eight_bit       # 日本語ファイル名等8ビットを通す
-setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
+setopt globdots              # ドットの指定なしで.から始まるファイルをマッチ
 setopt list_packed           # リストを詰めて表示
 setopt auto_cd               # ディレクトリ名だけでcd
 setopt auto_pushd            # pushdの自動化(cd -[tab]用)
