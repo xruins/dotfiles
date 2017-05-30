@@ -36,6 +36,8 @@ if ! zgen saved; then
 	zgen prezto fasd
 	zgen prezto syntax-highlighting
 
+
+
 	#zgen load djui/alias-tips
 	zgen load caarlos0/zsh-git-sync
 	zgen load TBSliver/zsh-plugin-colored-man
