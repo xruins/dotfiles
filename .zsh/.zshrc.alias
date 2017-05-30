@@ -43,6 +43,9 @@ alias -g RET='RAILS_ENV=test'
 alias -g REV='RAILS_ENV=vagrant'
 alias -g REMT='RAILS_ENV=master_test'
 
+# git concerns
+alias br="git branch --contains=HEAD"
+
 # iptables --listを使用した際に自動でルール番号を表示させる
 function iptables () {
     if [ "$1" eq "--list" ]

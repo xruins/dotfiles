@@ -19,6 +19,7 @@
     cm = commit
     ci = commit -a
     ps = push
+	psc = push origin `git branch --contains=HEAD`
     pl = pull
     co = checkout
     mg = merge
