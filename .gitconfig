@@ -37,6 +37,6 @@
 [help]
     autocorrect = 1
 [push]
-	default = current
+	default = upstream
 [pull]
     rebase = true
