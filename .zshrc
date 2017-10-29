@@ -36,6 +36,8 @@ if ! zgen saved; then
 	zgen prezto fasd
 	zgen prezto syntax-highlighting
 
+
+
 	#zgen load djui/alias-tips
 	zgen load caarlos0/zsh-git-sync
 	zgen load TBSliver/zsh-plugin-colored-man
@@ -123,8 +125,8 @@ SRC_HIGHLIGHT_PATH="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 [ -x ${SRC_HIGHLIGHT_PATH} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH} %s"
 
 # for macOS w/ homebrew script
-SRC_HIGHLIGHT_PATH_OSX="/usr/local/share/source-highlight/src-hilite-lesspipe.sh"
-[ -x ${SRC_HIGHLIGHT_PATH_OSX} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH} %s"
+SRC_HIGHLIGHT_PATH_OSX="/usr/local/bin/src-hilite-lesspipe.sh"
+[ -x ${SRC_HIGHLIGHT_PATH_OSX} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH_OSX} %s"
 
 # ----------------------------------------
 # Completion
