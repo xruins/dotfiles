@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-DOT_FILES=( .zshrc .gitconfig .gitignore .tmux.conf .zsh )
+DOT_FILES=( .zshrc .gitconfig .gitignore .tmux.conf .zsh .rubocop.yml )
 
 # シンボリックリンクをはる
 echo 'Make symbolic links...'
@@ -12,8 +12,3 @@ do
 done
 
 touch ~/.z
-
-# Submodule の初期化
-echo 'Fetching submodules...'
-git submodule init
-git submodule update --remote
