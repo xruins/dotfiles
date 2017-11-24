@@ -55,6 +55,3 @@ function iptables () {
         iptables $*
     fi
 }
-
-# ag
-alias ag='ag -S --stats --pager "less -F"'
