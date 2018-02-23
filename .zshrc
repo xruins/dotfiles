@@ -10,8 +10,8 @@ export EDITOR='emacs'
 
 # ヒストリ
 HISTFILE=~/.zsh_history
-HISTSIZE=16384
-SAVEHIST=16394
+HISTSIZE=65536
+SAVEHIST=65536
 
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
