@@ -58,7 +58,7 @@ fi
 # path configuration
 # ----------------------------------------
 
-ADDITIONAL_PATH=($HOME/local/bin $HOME/bin)
+ADDITIONAL_PATH=($HOME/local/bin $HOME/bin /usr/local/bin /usr/local/sbin)
 for p in $ADDITIONAL_PATH; do
     if [ -e $p ]; then
 	export PATH="$p:$PATH"
