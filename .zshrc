@@ -29,22 +29,26 @@ if ! zgen saved; then
 	zgen prezto '*:*' case-sensitive 'no'
 	zgen prezto '*:*' color 'yes'
 
+	zgen prezto command-not-found
+	zgen prezto fasd
 	zgen prezto git
 	zgen prezto python
-	zgen prezto command-not-found
-	zgen prezto tmux
-	zgen prezto fasd
 	zgen prezto syntax-highlighting
+	zgen prezto tmux
+    zgen prezto completion
+    zgen prezto directory
+    zgen prezto editor
+    zgen prezto environment
+    zgen prezto history
+    zgen prezto spectrum
+    zgen prezto terminal
+    zgen prezto utility
 
-
-
-	#zgen load djui/alias-tips
-	zgen load caarlos0/zsh-git-sync
 	zgen load TBSliver/zsh-plugin-colored-man
+	zgen load caarlos0/zsh-git-sync
 	zgen load mafredri/zsh-async
-
-	zgen load zsh-users/zsh-syntax-highlighting
 	zgen load tarruda/zsh-autosuggestions
+	zgen load zsh-users/zsh-syntax-highlighting
 
 	zstyle ':prezto:module:prompt' theme 'paradox'
 	zgen save
