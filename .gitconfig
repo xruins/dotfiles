@@ -5,7 +5,7 @@ path = ~/.gitconfig.local
 ui = true
 
 [merge]
-tool = meld
+	tool = meld
 
 [core]
 editor = emacs -q -nw
