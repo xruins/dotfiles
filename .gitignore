@@ -80,3 +80,4 @@ flycheck_*
 .byebug_history
 .tags*
 .zshrc.env
+.gitconfig.local
