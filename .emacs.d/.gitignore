@@ -1,0 +1,9 @@
+!auto-save-list/.gitkeep
+*.elc
+/auto-save-list/*
+/el-get/*
+/elpa/*
+ac-comphist.dat
+network-security.data
+recentf
+kkcrc
