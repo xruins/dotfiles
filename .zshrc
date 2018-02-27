@@ -22,36 +22,36 @@ export CASE_SENSITIVE="false"
 source $HOME/dotfiles/.zgen/zgen.zsh
 
 if ! zgen saved; then
-	echo "Creating a zgen save"
+    echo "Creating a zgen save"
 
-	zgen prezto
-	zgen prezto editor key-bindings 'emacs'
-	zgen prezto '*:*' case-sensitive 'no'
-	zgen prezto '*:*' color 'yes'
+    zgen prezto
+    zgen prezto editor key-bindings 'emacs'
+    zgen prezto '*:*' case-sensitive 'no'
+    zgen prezto '*:*' color 'yes'
 
-	zgen prezto command-not-found
-	zgen prezto fasd
-	zgen prezto git
-	zgen prezto python
-	zgen prezto syntax-highlighting
-	zgen prezto tmux
+    zgen prezto command-not-found
     zgen prezto completion
     zgen prezto directory
     zgen prezto editor
     zgen prezto environment
+    zgen prezto fasd
+    zgen prezto git
     zgen prezto history
+    zgen prezto python
     zgen prezto spectrum
+    zgen prezto syntax-highlighting
     zgen prezto terminal
+    zgen prezto tmux
     zgen prezto utility
 
-	zgen load TBSliver/zsh-plugin-colored-man
-	zgen load caarlos0/zsh-git-sync
-	zgen load mafredri/zsh-async
-	zgen load tarruda/zsh-autosuggestions
-	zgen load zsh-users/zsh-syntax-highlighting
+    zgen load caarlos0/zsh-git-sync
+    zgen load TBSliver/zsh-plugin-colored-man
+    zgen load mafredri/zsh-async
+    zgen load tarruda/zsh-autosuggestions
+    zgen load zsh-users/zsh-syntax-highlighting
 
-	zstyle ':prezto:module:prompt' theme 'paradox'
-	zgen save
+    zstyle ':prezto:module:prompt' theme 'paradox'
+    zgen save
 fi
 
 # ----------------------------------------
@@ -157,32 +157,32 @@ compctl -U -K _z_zsh_tab_completion $_Z_CMD
 # ls の色付け指定
 unset LSCOLORS
 case "${TERM}" in
-xterm)
-  export TERM=xterm-color
-  ;;
-kterm)
-  export TERM=kterm-color
-  # set BackSpace control character
-  stty erase
-  ;;
-cons25)
-  unset LANG
-  export LSCOLORS=ExFxCxdxBxegedabagacad
-  export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-  zstyle ':completion:*' list-colors \
-    'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-  ;;
+    xterm)
+	export TERM=xterm-color
+	;;
+    kterm)
+	export TERM=kterm-color
+	# set BackSpace control character
+	stty erase
+	;;
+    cons25)
+	unset LANG
+	export LSCOLORS=ExFxCxdxBxegedabagacad
+	export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+	zstyle ':completion:*' list-colors \
+	       'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+	;;
 esac
 
 # Terminal のタイトルにカレントディレクトリを追加
 case "$TERM" in
     xterm*|kterm*|rxvt*)
-    PROMPT=$(print "%B%{\e[34m%}%m:%(5~,%-2~/.../%2~,%~)%{\e[33m%}%# %b")
-    PROMPT=$(print "%{\e]2;%n@%m: %~\7%}$PROMPT") # title bar
-    ;;
+	PROMPT=$(print "%B%{\e[34m%}%m:%(5~,%-2~/.../%2~,%~)%{\e[33m%}%# %b")
+	PROMPT=$(print "%{\e]2;%n@%m: %~\7%}$PROMPT") # title bar
+	;;
     *)
-    PROMPT='%m:%c%# '
-    ;;
+	PROMPT='%m:%c%# '
+	;;
 esac
 
 # ----------------------------------------
@@ -191,27 +191,27 @@ esac
 
 # 解凍 http://d.hatena.ne.jp/jeneshicc/20110215/1297778049
 function extract () {
-  if [ -f $1 ] ; then
-      case $1 in
-          *.tar.bz2)   tar xvjf $1    ;;
-          *.tar.gz)    tar xvzf $1    ;;
-          *.tar.xz)    tar xvJf $1    ;;
-          *.bz2)       bunzip2 $1     ;;
-          *.rar)       unrar x $1     ;;
-          *.gz)        gunzip $1      ;;
-          *.tar)       tar xvf $1     ;;
-          *.tbz2)      tar xvjf $1    ;;
-          *.tgz)       tar xvzf $1    ;;
-          *.zip)       unzip $1       ;;
-          *.Z)         uncompress $1  ;;
-          *.7z)        7z x $1        ;;
-          *.lzma)      lzma -dv $1    ;;
-          *.xz)        xz -dv $1      ;;
-          *)           echo "don't know how to extract '$1'..." ;;
-      esac
-  else
-      echo "'$1' is not a valid file!"
-  fi
+    if [ -f $1 ] ; then
+	case $1 in
+            *.tar.bz2)   tar xvjf $1    ;;
+            *.tar.gz)    tar xvzf $1    ;;
+            *.tar.xz)    tar xvJf $1    ;;
+            *.bz2)       bunzip2 $1     ;;
+            *.rar)       unrar x $1     ;;
+            *.gz)        gunzip $1      ;;
+            *.tar)       tar xvf $1     ;;
+            *.tbz2)      tar xvjf $1    ;;
+            *.tgz)       tar xvzf $1    ;;
+            *.zip)       unzip $1       ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1        ;;
+            *.lzma)      lzma -dv $1    ;;
+            *.xz)        xz -dv $1      ;;
+            *)           echo "don't know how to extract '$1'..." ;;
+	esac
+    else
+	echo "'$1' is not a valid file!"
+    fi
 }
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,lzma,tbz2,rar}=extract
@@ -231,7 +231,7 @@ function precmd () {
 source ~/dotfiles/.zsh/z.sh
 
 # -------------------------------------
-# named directory
+#  named directory
 # -------------------------------------
 
 setopt CDABLE_VARS
@@ -240,22 +240,18 @@ hash -d doc=$HOME/Documents
 hash -d repos=$HOME/repos
 
 # ----------------------------------------
-#  rbenv
+#  anyenv
 # ----------------------------------------
 
-if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
+if [ -d ${HOME}/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    for D in `ls $HOME/.anyenv/envs`
+    do
+        export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+    done
 fi
 
-# ----------------------------------------
-#  pyenv
-# ----------------------------------------
-
-if [ -d $HOME/.pyenv ]; then
-    export PATH="$HOME/.pyenv/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
 # ----------------------------------------
 #  Homebrew
 # ----------------------------------------
@@ -267,12 +263,6 @@ if [ -x brew ]; then
         source $(brew --prefix)/etc/brew-wrap
     fi
 fi
-
-# ----------------------------------------
-#  golang
-# ----------------------------------------
-
-[ -x go ] && export GOPATH=$HOME/.go
 
 # ----------------------------------------
 #  zsh prompt theme init
@@ -287,5 +277,5 @@ prompt paradox
 # ----------------------------------------
 
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
-	zcompile ~/.zshrc
+    zcompile ~/.zshrc
 fi
