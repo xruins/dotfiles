@@ -41,7 +41,6 @@
 (el-get-bundle markdown-toc)
 (el-get-bundle nginx-mode)
 (el-get-bundle org-mode)
-(el-get-bundle smart-compile)
 (el-get-bundle popwin)
 (el-get-bundle powerline)
 (el-get-bundle rainbow-delimiters)
@@ -50,8 +49,10 @@
 (el-get-bundle rspec-mode)
 (el-get-bundle rubocop)
 (el-get-bundle ruby-block)
+(el-get-bundle elpa:ruby-electric)
 (el-get-bundle ruby-refactor)
 (el-get-bundle slim-mode)
+(el-get-bundle smart-compile)
 (el-get-bundle visual-regexp)
 (el-get-bundle yaml-mode)
 (el-get-bundle yascroll)
@@ -270,3 +271,9 @@
 
 (global-set-key "\M-n" "\C-u1\C-v")
 (global-set-key "\M-p" "\C-u1\M-v")
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
