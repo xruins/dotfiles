@@ -35,8 +35,6 @@ alias su="su -l"
 
 alias emacs="emacs -nw"
 
-alias g="git"
-
 # ruby/rails
 alias devlog='tail -f log/development.log'
 alias prodlog='tail -f log/production.log'
