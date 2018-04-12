@@ -50,5 +50,9 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+
 [remote "origin"]
 	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[ghq]
+    root = ~/src

@@ -239,7 +239,7 @@ hash -d desktop=$HOME/Desktop
 hash -d doc=$HOME/Documents
 hash -d repos=$HOME/repos
 
-# ----------------------------------------
+# ---------------------------------------
 #  anyenv
 # ----------------------------------------
 
@@ -257,17 +257,8 @@ fi
 #  go
 # ----------------------------------------
 
-if [ -x go -a -d $HOME/repos ]; then
-    export GOPATH=$HOME/repos
-fi
-
-
-# ----------------------------------------
-#  ghq
-# ----------------------------------------
-
-if [ -x ghq -a -d $HOME/repos ]; then
-    export GHQ_ROOT=$HOME/repos
+if [ -x go ]; then
+    export GOPATH=$HOME
 fi
 
 # ----------------------------------------
