@@ -257,7 +257,7 @@ fi
 #  go
 # ----------------------------------------
 
-if [ -x go && -d $HOME/repos ]; then
+if [ -x go -a -d $HOME/repos ]; then
     export GOPATH=$HOME/repos
 fi
 
@@ -266,7 +266,7 @@ fi
 #  ghq
 # ----------------------------------------
 
-if [ -x ghq && -d $HOME/repos ]; then
+if [ -x ghq -a -d $HOME/repos ]; then
     export GHQ_ROOT=$HOME/repos
 fi
 
