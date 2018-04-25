@@ -1,4 +1,3 @@
-
 ## Alias configuration
 #
 # expand aliases before completing
@@ -48,6 +47,9 @@ alias -g REMT='RAILS_ENV=master_test'
 
 # git concerns
 alias br="git branch --contains=HEAD"
+
+# git branch selection w/ peco
+alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 # iptables --listを使用した際に自動でルール番号を表示させる
 function iptables () {
