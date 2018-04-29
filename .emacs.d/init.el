@@ -41,7 +41,6 @@
 (el-get-bundle markdown-mode)
 (el-get-bundle markdown-toc)
 (el-get-bundle nginx-mode)
-(el-get-bundle org-mode)
 (el-get-bundle popwin)
 (el-get-bundle powerline)
 (el-get-bundle rainbow-delimiters)
