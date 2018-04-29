@@ -22,6 +22,7 @@
 (el-get-bundle color-theme-solarized)
 (el-get-bundle dash)
 (el-get-bundle dockerfile-mode)
+(el-get-bundle elpa:ruby-electric)
 (el-get-bundle expand-region)
 (el-get-bundle flycheck)
 (el-get-bundle flycheck-pos-tip)
