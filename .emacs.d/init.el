@@ -30,11 +30,13 @@
 (el-get-bundle fringe-helper)
 (el-get-bundle git-gutter)
 (el-get-bundle git-gutter-fringe)
+(el-get-bundle go-autocomplete)
 (el-get-bundle go-mode)
 (el-get-bundle haml-mode)
 (el-get-bundle helm)
 (el-get-bundle helm-ag)
 (el-get-bundle helm-flycheck)
+(el-get-bundle helm-ghq)
 (el-get-bundle helm-ls-git)
 (el-get-bundle json-mode)
 (el-get-bundle magit)
@@ -49,7 +51,6 @@
 (el-get-bundle rspec-mode)
 (el-get-bundle rubocop)
 (el-get-bundle ruby-block)
-(el-get-bundle elpa:ruby-electric)
 (el-get-bundle ruby-refactor)
 (el-get-bundle slim-mode)
 (el-get-bundle smart-compile)
@@ -118,6 +119,24 @@
 (define-key global-map (kbd "M-x")     'helm-M-x)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
+
+;; helm-file
+(defadvice helm-for-files
+  (around helm-for-files-no-highlight activate)
+  "No highlight when using helm-for-files."
+  (let ((helm-mp-highlight-delay nil))
+    ad-do-it))
+
+(defconst helm-for-files-preferred-list
+  '(helm-source-buffers-list
+    helm-source-recentf
+    helm-source-file-cache
+    helm-source-ghq
+    helm-source-files-in-current-dir
+    ;; comment out this is too heavy for me.
+    ;; helm-source-bookmarks
+    ;; helm-source-locate
+    ))
 
 ;; better helm-find-files
 (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
@@ -250,6 +269,13 @@
           (lambda ()
             (make-local-variable 'js-indent-level)
             (setq js-indent-level 2)))
+
+;; go
+(add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'go-mode-hook (lambda ()
+                          (local-set-key (kbd "M-.") 'godef-jump)))
+(add-to-list 'helm-for-files-preferred-list 'helm-source-ghq)
+(global-set-key (kbd "C-r") 'helm-ghq)
 
 ;; yaml
 (unless (package-installed-p 'yaml-mode)
