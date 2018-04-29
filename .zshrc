@@ -256,9 +256,7 @@ fi
 #  go
 # ----------------------------------------
 
-if [ -x go ]; then
-    export GOPATH=$HOME
-fi
+export GOPATH=$HOME
 
 # ----------------------------------------
 #  direnv
