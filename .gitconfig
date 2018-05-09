@@ -16,47 +16,47 @@
     filemode = false
 
 [alias]
-    graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
-    st = status
-    gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
-    cp = cherry-pick
-    cpc = cherry-pick --continue
-    cpa = cherry-pick --abort
-    rb = rebase
-    ri = rebase -i
-    cm = commit
+    a  = add
+    br = branch
+    c  = commit
     ci = commit -a
+    cm = commit
+    co = checkout
+    cp = cherry-pick
+    cpa = cherry-pick --abort
+    cpc = cherry-pick --continue
+    df = diff
+    gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+    graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+    mg = merge
+    pl = pull
     ps = push
     psc = push origin -- `git branch --contains=HEAD`
-    pl = pull
-    co = checkout
-    mg = merge
-    df = diff
-    br = branch
+    r  = reset
     ra = remote add
+    rb = rebase
+    rd = rm $(git ls-files --deleted)
+    ri = rebase -i
     rr = remote rm
     rs = remote set-url
+    st = status
     tb = topic-branch
-    rd = rm $(git ls-files --deleted)
 
 [help]
     autocorrect = 1
 
 [push]
-    default = nothing
-
-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-
-[remote "origin"]
-	fetch = +refs/heads/*:refs/remotes/origin/*
+    default = simple
 
 [ghq]
     root = ~/src
+
 [hub]
 	protocol = ssh
+
+[pager]
+    diff = "diff-so-fancy | less --tabs=4 -RFX"
+    show = "diff-so-fancy | less --tabs=4 -RFX"
+
 [url "git@github.com:"]
 	insteadOf = https://github.com/
