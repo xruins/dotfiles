@@ -17,43 +17,22 @@ SAVEHIST=65536
 export CASE_SENSITIVE="false"
 
 # ----------------------------------------
-#  zgen
+#  zplug
 # ----------------------------------------
-source $HOME/dotfiles/.zgen/zgen.zsh
 
-if ! zgen saved; then
-    echo "Creating a zgen save"
+source $HOME/dotfiles/zplug/init.zsh
 
-    zgen prezto
-    zgen prezto editor key-bindings 'emacs'
-    zgen prezto '*:*' case-sensitive 'no'
-    zgen prezto '*:*' color 'yes'
 
-    zgen prezto command-not-found
-    zgen prezto completion
-    zgen prezto directory
-    zgen prezto editor
-    zgen prezto environment
-    zgen prezto fasd
-    zgen prezto git
-    zgen prezto history
-    zgen prezto python
-    zgen prezto spectrum
-    zgen prezto syntax-highlighting
-    zgen prezto terminal
-    zgen prezto tmux
-    zgen prezto utility
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "b4b4r07/enhancd", use:init.sh
 
-    zgen load caarlos0/zsh-git-sync
-    zgen load TBSliver/zsh-plugin-colored-man
-    zgen load mafredri/zsh-async
-    zgen load tarruda/zsh-autosuggestions
-    zgen load zsh-users/zsh-syntax-highlighting
+# pretty curl
+zplug "b4b4r07/httpstat", \
+    as:command, \
+    use:'(*).sh', \
+    rename-to:'$1'
 
-    zstyle ':prezto:module:prompt' theme 'paradox'
-    zgen save
-fi
-
+zplug 'houjunchen/solarized-powerline', as:theme
 # ----------------------------------------
 # path configuration
 # ----------------------------------------
