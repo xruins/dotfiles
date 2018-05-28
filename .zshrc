@@ -262,7 +262,7 @@ export GOPATH=$HOME
 #  direnv
 # ----------------------------------------
 
-if [ -x direnv ]; then
+if type "direnv" > /dev/null 2>&1; then
     eval "$(direnv hook zsh)"
 fi
 
@@ -271,11 +271,26 @@ fi
 # ----------------------------------------
 
 # brewコマンドが実行可能な場合のみ適用する
-if [ -x brew ]; then
+if type "brew" > /dev/null 2>&1; then
     # brew file 用のwrapper
     if [ -f $(brew --prefix)/etc/brew-wrap ];then
         source $(brew --prefix)/etc/brew-wrap
     fi
+fi
+
+# ----------------------------------------
+#  history search with peco
+# ----------------------------------------
+
+if type "peco" > /dev/null 2>&1; then
+    function peco-history-selection() {
+        BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+        CURSOR=$#BUFFER
+        zle reset-prompt
+    }
+
+    zle -N peco-history-selection
+    bindkey '^R' peco-history-selection
 fi
 
 # ----------------------------------------
