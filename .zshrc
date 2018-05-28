@@ -16,12 +16,14 @@ SAVEHIST=65536
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
+# theme specification
+ZSH_THEME="solarized-powerline"
+
 # ----------------------------------------
 #  zplug
 # ----------------------------------------
 
 source $HOME/dotfiles/zplug/init.zsh
-
 
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "b4b4r07/enhancd", use:init.sh
@@ -32,7 +34,22 @@ zplug "b4b4r07/httpstat", \
     use:'(*).sh', \
     rename-to:'$1'
 
-zplug 'houjunchen/solarized-powerline', as:theme
+zplug 'b4b4r07/pkill.sh', as:command, use:'pkill.sh', rename-to:'pk'
+zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
+zplug "changyuheng/fz", defer:1
+zplug "rupa/z", use:z.sh
+zplug "agnoster/agnoster-zsh-theme", as:theme
+
+
+# intitialize
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load --verbose
+
 # ----------------------------------------
 # path configuration
 # ----------------------------------------
@@ -270,20 +287,4 @@ if type "peco" > /dev/null 2>&1; then
 
     zle -N peco-history-selection
     bindkey '^R' peco-history-selection
-fi
-
-# ----------------------------------------
-#  zsh prompt theme init
-# ----------------------------------------
-
-autoload -Uz promptinit
-promptinit
-prompt paradox
-
-# ----------------------------------------
-# zsh precompile
-# ----------------------------------------
-
-if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
-    zcompile ~/.zshrc
 fi
