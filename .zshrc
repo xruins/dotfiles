@@ -209,15 +209,6 @@ function precmd () {
 
 source ~/dotfiles/.zsh/z.sh
 
-# -------------------------------------
-#  named directory
-# -------------------------------------
-
-setopt CDABLE_VARS
-hash -d desktop=$HOME/Desktop
-hash -d doc=$HOME/Documents
-hash -d repos=$HOME/repos
-
 # ---------------------------------------
 #  anyenv
 # ----------------------------------------
@@ -271,14 +262,6 @@ if type "peco" > /dev/null 2>&1; then
     zle -N peco-history-selection
     bindkey '^R' peco-history-selection
 fi
-
-# ----------------------------------------
-#  zsh prompt theme init
-# ----------------------------------------
-
-autoload -Uz promptinit
-promptinit
-prompt paradox
 
 # ----------------------------------------
 # zsh precompile
