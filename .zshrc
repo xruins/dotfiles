@@ -31,13 +31,13 @@ zplug "changyuheng/fz", defer:1
 zplug "glidenote/hub-zsh-completion"
 zplug "modules/prompt", from:prezto
 zplug "rupa/z", use:z.sh
+zplug "sorin-ionescu/prezto"
 zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'Valodim/zsh-curl-completion'
 zplug 'b4b4r07/pkill.sh', as:command, use:'pkill.sh', rename-to:'pk'
-zplug "agnoster/agnoster-zsh-theme", as:theme
 
 zplug 'b4b4r07/epoch-cat', \
       as:command, \
@@ -76,8 +76,6 @@ zplug "fujiwara/nssh", \
       from:gh-r, \
       rename-to:"nssh"
 
-
-
 # intitialize
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -86,13 +84,15 @@ if ! zplug check --verbose; then
     fi
 fi
 
-zplug load --verbose
+zplug load
+
+zstyle ':prezto:module:prompt' theme 'paradox'
 
 # ----------------------------------------
 # path configuration
 # ----------------------------------------
 
-ADDITIONAL_PATH=($HOME/local/bin $HOME/bin /usr/local/bin /usr/local/sbin)
+ADDITIONAL_PATH=($HOME/local/bin $HOME/bin /usr/local/bin /usr/local/sbin $HOME/google-cloud-sdk/bin)
 for p in $ADDITIONAL_PATH; do
     if [ -e $p ]; then
 	    export PATH="$p:$PATH"
