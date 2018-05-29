@@ -22,9 +22,33 @@ export CASE_SENSITIVE="false"
 
 source $HOME/dotfiles/zplug/init.zsh
 
-
-zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "glidenote/hub-zsh-completion"
+zplug 'Valodim/zsh-curl-completion'
 zplug "b4b4r07/enhancd", use:init.sh
+zplug "modules/prompt", from:prezto
+zplug "zsh-users/zsh-completions"
+zplug 'b4b4r07/epoch-cat', \
+    as:command, \
+    hook-build:'go get -d && go build'
+
+zplug "junegunn/fzf-bin", \
+    as:command, \
+    from:gh-r, \
+    rename-to:"fzf",
+zplug "stedolan/jq", \
+    as:command, \
+    from:gh-r, \
+    rename-to:jq
+zplug "peco/peco", \
+    as:command, \
+    from:gh-r
+
+zplug "motemen/ghq", \
+    as:command, \
+    from:gh-r, \
+    rename-to:ghq
 
 # pretty curl
 zplug "b4b4r07/httpstat", \
@@ -32,7 +56,11 @@ zplug "b4b4r07/httpstat", \
     use:'(*).sh', \
     rename-to:'$1'
 
-zplug 'houjunchen/solarized-powerline', as:theme
+zplug "jhawthorn/fzy", \
+    as:command, \
+    hook-build:"make && sudo make install"
+
+
 # ----------------------------------------
 # path configuration
 # ----------------------------------------
