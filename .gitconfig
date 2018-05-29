@@ -1,62 +1,62 @@
 [include]
-    path = ~/.gitconfig.local
+path = ~/.gitconfig.local
 
 [color]
-    ui = true
+ui = true
 
 [merge]
-	tool = meld
+tool = meld
 
 [core]
-    editor = emacs -q -nw
-    pager = less
-    whitespace = trailing-space,space-before-tab,indent-with-non-tab
-    excludesfile = ~/.gitignore
-    # パーミッションの変更を無視
-    filemode = false
+editor = emacs -q -nw
+pager = less
+whitespace = trailing-space,space-before-tab,indent-with-non-tab
+excludesfile = ~/.gitignore
+# パーミッションの変更を無視
+filemode = false
 
 [alias]
-    a  = add
-    br = branch
-    c  = commit
-    ci = commit -a
-    cm = commit
-    co = checkout
-    cp = cherry-pick
-    cpa = cherry-pick --abort
-    cpc = cherry-pick --continue
-    df = diff
-    gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
-    graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
-    mg = merge
-    pl = pull
-    ps = push
-    psc = push origin -- `git branch --contains=HEAD`
-    r  = reset
-    ra = remote add
-    rb = rebase
-    rd = rm $(git ls-files --deleted)
-    ri = rebase -i
-    rr = remote rm
-    rs = remote set-url
-    st = status
-    tb = topic-branch
+a  = add
+br = branch
+c  = commit
+ci = commit -a
+cm = commit
+co = checkout
+cp = cherry-pick
+cpa = cherry-pick --abort
+cpc = cherry-pick --continue
+df = diff
+gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+mg = merge
+pl = pull
+ps = push
+psc = push origin -- `git branch --contains=HEAD`
+r  = reset
+ra = remote add
+rb = rebase
+rd = rm $(git ls-files --deleted)
+ri = rebase -i
+rr = remote rm
+rs = remote set-url
+st = status
+tb = topic-branch
 
 [help]
-    autocorrect = 1
+autocorrect = 1
 
 [push]
-    default = simple
+default = simple
 
 [ghq]
-    root = ~/src
+root = ~/src
 
 [hub]
-	protocol = ssh
+protocol = ssh
 
 [pager]
-    diff = "diff-so-fancy | less --tabs=4 -RFX"
-    show = "diff-so-fancy | less --tabs=4 -RFX"
+diff = "diff-so-fancy | less --tabs=4 -RFX"
+show = "diff-so-fancy | less --tabs=4 -RFX"
 
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+insteadOf = https://github.com/
