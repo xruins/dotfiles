@@ -16,6 +16,9 @@ SAVEHIST=65536
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
+# theme specification
+ZSH_THEME="solarized-powerline"
+
 # ----------------------------------------
 #  zplug
 # ----------------------------------------
@@ -24,12 +27,18 @@ source $HOME/dotfiles/zplug/init.zsh
 ZPLUG_PROTOCOL=ssh
 
 zplug "b4b4r07/enhancd", use:init.sh
+zplug "changyuheng/fz", defer:1
 zplug "glidenote/hub-zsh-completion"
 zplug "modules/prompt", from:prezto
+zplug "rupa/z", use:z.sh
+zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'Valodim/zsh-curl-completion'
+zplug 'b4b4r07/pkill.sh', as:command, use:'pkill.sh', rename-to:'pk'
+zplug "agnoster/agnoster-zsh-theme", as:theme
+
 zplug 'b4b4r07/epoch-cat', \
       as:command, \
       hook-build:'go get -d && go build'
@@ -66,6 +75,18 @@ zplug "fujiwara/nssh", \
       as:command, \
       from:gh-r, \
       rename-to:"nssh"
+
+
+
+# intitialize
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load --verbose
 
 # ----------------------------------------
 # path configuration
