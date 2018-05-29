@@ -21,45 +21,51 @@ export CASE_SENSITIVE="false"
 # ----------------------------------------
 
 source $HOME/dotfiles/zplug/init.zsh
+ZPLUG_PROTOCOL=ssh
 
-zplug "zplug/zplug", hook-build:'zplug --self-manage'
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "glidenote/hub-zsh-completion"
-zplug 'Valodim/zsh-curl-completion'
 zplug "b4b4r07/enhancd", use:init.sh
+zplug "glidenote/hub-zsh-completion"
 zplug "modules/prompt", from:prezto
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug 'Valodim/zsh-curl-completion'
 zplug 'b4b4r07/epoch-cat', \
-    as:command, \
-    hook-build:'go get -d && go build'
-
+      as:command, \
+      hook-build:'go get -d && go build'
 zplug "junegunn/fzf-bin", \
-    as:command, \
-    from:gh-r, \
-    rename-to:"fzf",
+      as:command, \
+      from:gh-r, \
+      rename-to:"fzf",
+zplug "moncho/dry", \
+      as:command, \
+      from:gh-r, \
+      rename-to:"dry"
 zplug "stedolan/jq", \
-    as:command, \
-    from:gh-r, \
-    rename-to:jq
+      as:command, \
+      from:gh-r, \
+      rename-to:jq
 zplug "peco/peco", \
-    as:command, \
-    from:gh-r
-
+      as:command, \
+      from:gh-r
 zplug "motemen/ghq", \
-    as:command, \
-    from:gh-r, \
-    rename-to:ghq
-
-# pretty curl
+      as:command, \
+      from:gh-r, \
+      rename-to:ghq
+zplug "b4b4r07/git-br", \
+      as:command, \
+      use:'git-br'
 zplug "b4b4r07/httpstat", \
-    as:command, \
-    use:'(*).sh', \
-    rename-to:'$1'
-
+      as:command, \
+      use:'(*).sh', \
+      rename-to:'$1'
 zplug "jhawthorn/fzy", \
-    as:command, \
-    hook-build:"make && sudo make install"
-
+      as:command, \
+      hook-build:"make && sudo make install"
+zplug "fujiwara/nssh", \
+      as:command, \
+      from:gh-r, \
+      rename-to:"nssh"
 
 # ----------------------------------------
 # path configuration
@@ -68,7 +74,7 @@ zplug "jhawthorn/fzy", \
 ADDITIONAL_PATH=($HOME/local/bin $HOME/bin /usr/local/bin /usr/local/sbin)
 for p in $ADDITIONAL_PATH; do
     if [ -e $p ]; then
-	export PATH="$p:$PATH"
+	    export PATH="$p:$PATH"
     fi
 done
 
@@ -165,31 +171,31 @@ compctl -U -K _z_zsh_tab_completion $_Z_CMD
 unset LSCOLORS
 case "${TERM}" in
     xterm)
-	export TERM=xterm-color
-	;;
+	    export TERM=xterm-color
+	    ;;
     kterm)
-	export TERM=kterm-color
-	# set BackSpace control character
-	stty erase
-	;;
+	    export TERM=kterm-color
+	    # set BackSpace control character
+	    stty erase
+	    ;;
     cons25)
-	unset LANG
-	export LSCOLORS=ExFxCxdxBxegedabagacad
-	export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-	zstyle ':completion:*' list-colors \
-	       'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-	;;
+	    unset LANG
+	    export LSCOLORS=ExFxCxdxBxegedabagacad
+	    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+	    zstyle ':completion:*' list-colors \
+	           'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+	    ;;
 esac
 
 # Terminal のタイトルにカレントディレクトリを追加
 case "$TERM" in
     xterm*|kterm*|rxvt*)
-	PROMPT=$(print "%B%{\e[34m%}%m:%(5~,%-2~/.../%2~,%~)%{\e[33m%}%# %b")
-	PROMPT=$(print "%{\e]2;%n@%m: %~\7%}$PROMPT") # title bar
-	;;
+	    PROMPT=$(print "%B%{\e[34m%}%m:%(5~,%-2~/.../%2~,%~)%{\e[33m%}%# %b")
+	    PROMPT=$(print "%{\e]2;%n@%m: %~\7%}$PROMPT") # title bar
+	    ;;
     *)
-	PROMPT='%m:%c%# '
-	;;
+	    PROMPT='%m:%c%# '
+	    ;;
 esac
 
 # ----------------------------------------
@@ -199,7 +205,7 @@ esac
 # 解凍 http://d.hatena.ne.jp/jeneshicc/20110215/1297778049
 function extract () {
     if [ -f $1 ] ; then
-	case $1 in
+	    case $1 in
             *.tar.bz2)   tar xvjf $1    ;;
             *.tar.gz)    tar xvzf $1    ;;
             *.tar.xz)    tar xvJf $1    ;;
@@ -215,9 +221,9 @@ function extract () {
             *.lzma)      lzma -dv $1    ;;
             *.xz)        xz -dv $1      ;;
             *)           echo "don't know how to extract '$1'..." ;;
-	esac
+	    esac
     else
-	echo "'$1' is not a valid file!"
+	    echo "'$1' is not a valid file!"
     fi
 }
 
