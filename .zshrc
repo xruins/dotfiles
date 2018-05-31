@@ -1,4 +1,4 @@
-l# ----------------------------------------
+# ----------------------------------------
 # Foundation
 # ----------------------------------------
 
@@ -18,6 +18,8 @@ export CASE_SENSITIVE="false"
 
 # theme specification
 ZSH_THEME="solarized-powerline"
+
+SH=`basename $SHELL`
 
 # ----------------------------------------
 #  zplug
@@ -300,6 +302,19 @@ if type "peco" > /dev/null 2>&1; then
 
     zle -N peco-history-selection
     bindkey '^R' peco-history-selection
+fi
+
+# ----------------------------------------
+#  gcloud
+# ----------------------------------------
+
+if type "gcloud" > /dev/null 2>&1; then
+    GCLOUD_EXECUTABLE_PATH=`where gcloud`
+    GCLOUD_BINDIR_PATH=`dirname $GCLOUD_EXECUTABLE_PATH`
+    GCLOUD_BASE_PATH=`dirname $GCLOUD_BINDIR_PATH`
+
+    source "$GCLOUD_BASE_PATH/path.$SH.inc"
+    source "$GCLOUD_BASE_PATH/completion.$SH.inc"
 fi
 
 # ----------------------------------------
