@@ -64,3 +64,16 @@ function iptables () {
 function agsed () {
     ag -l $1 | xargs sed -i '' "s/$1/$2/g"
 }
+
+function gcsw () {
+    gcloud config configurations list | tail -n +2 | peco --query default | read line
+    CONFIG=`cat $line | awk '{ print $1 }'`
+    gcloud config configurations activate $CONFIG
+}
+
+function f () {
+    find `pwd` -print | peco --prompt 'FILE>' | read line
+    cd `dirname $line`
+}
+
+alias -g F='`find . -print | peco --prompt "FILE>"`'
