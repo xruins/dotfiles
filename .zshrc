@@ -1,4 +1,4 @@
-# ----------------------------------------
+l# ----------------------------------------
 # Foundation
 # ----------------------------------------
 
@@ -29,16 +29,15 @@ ZPLUG_PROTOCOL=ssh
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "changyuheng/fz", defer:1
 zplug "glidenote/hub-zsh-completion"
+zplug "sorin-ionescu/prezto"
 zplug "modules/prompt", from:prezto
 zplug "rupa/z", use:z.sh
-zplug "sorin-ionescu/prezto"
 zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'Valodim/zsh-curl-completion'
 zplug 'b4b4r07/pkill.sh', as:command, use:'pkill.sh', rename-to:'pk'
-
 zplug 'b4b4r07/epoch-cat', \
       as:command, \
       hook-build:'go get -d && go build'
@@ -85,8 +84,6 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
-
-zstyle ':prezto:module:prompt' theme 'paradox'
 
 # ----------------------------------------
 # path configuration
@@ -306,7 +303,13 @@ if type "peco" > /dev/null 2>&1; then
 fi
 
 # ----------------------------------------
-# zsh precompile
+#  initialize prompt theme
+# ----------------------------------------
+
+prompt paradox
+
+# ----------------------------------------
+#  zsh precompile
 # ----------------------------------------
 
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
