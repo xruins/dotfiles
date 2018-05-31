@@ -26,6 +26,9 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 alias b='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 alias v='code $(ghq root)/$(ghq list | peco)'
 
+# emacs
+alias e='emacs'
+
 # misc unix commands
 alias du="du -h"
 alias df="df -h"
