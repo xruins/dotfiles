@@ -28,7 +28,6 @@
 (el-get-bundle flycheck-pos-tip)
 (el-get-bundle flymake-easy)
 (el-get-bundle fringe-helper)
-(el-get-bundle git-gutter)
 (el-get-bundle git-gutter-fringe)
 (el-get-bundle go-autocomplete)
 (el-get-bundle go-mode)
@@ -183,15 +182,15 @@
 (setq show-paren-style 'mixed)
 
 ;; git-gutter
-(git-gutter:linum-setup)
-(global-git-gutter-mode t)
-(global-set-key (kbd "C-x C-g") 'git-gutter)
-(global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
-(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
-(global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
-(global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
-(global-set-key (kbd "C-x v SPC") 'git-gutter:mark-hunk)
+;; (git-gutter:linum-setup)
+;; (global-git-gutter-mode t)
+;; (global-set-key (kbd "C-x C-g") 'git-gutter)
+;; (global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+;; (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+;; (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+;; (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
+;; (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+;; (global-set-key (kbd "C-x v SPC") 'git-gutter:mark-hunk)
 
 ;; delete trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

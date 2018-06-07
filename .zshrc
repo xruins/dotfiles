@@ -16,52 +16,93 @@ SAVEHIST=65536
 # 大文字と小文字を区別しない
 export CASE_SENSITIVE="false"
 
+# theme specification
+ZSH_THEME="solarized-powerline"
+
+SH=`basename $SHELL`
+
 # ----------------------------------------
-#  zgen
+#  zplug
 # ----------------------------------------
-source $HOME/dotfiles/.zgen/zgen.zsh
 
-if ! zgen saved; then
-    echo "Creating a zgen save"
+source $HOME/dotfiles/zplug/init.zsh
+ZPLUG_PROTOCOL=ssh
 
-    zgen prezto
-    zgen prezto editor key-bindings 'emacs'
-    zgen prezto '*:*' case-sensitive 'no'
-    zgen prezto '*:*' color 'yes'
+zplug "b4b4r07/enhancd", use:init.sh
+zplug "glidenote/hub-zsh-completion"
+zplug "modules/prompt", from:prezto
+zplug "modules/utility", from:prezto
+zplug "rupa/z", use:z.sh
+zplug "sorin-ionescu/prezto"
+zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
+zplug 'Valodim/zsh-curl-completion'
+zplug 'b4b4r07/pkill.sh', as:command, use:'pkill.sh', rename-to:'pk'
 
-    zgen prezto command-not-found
-    zgen prezto completion
-    zgen prezto directory
-    zgen prezto editor
-    zgen prezto environment
-    zgen prezto fasd
-    zgen prezto git
-    zgen prezto history
-    zgen prezto python
-    zgen prezto spectrum
-    zgen prezto syntax-highlighting
-    zgen prezto terminal
-    zgen prezto tmux
-    zgen prezto utility
+zplug "zsh-users/zsh-completions", defer:0
+zplug "changyuheng/fz", defer:1
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
-    zgen load caarlos0/zsh-git-sync
-    zgen load TBSliver/zsh-plugin-colored-man
-    zgen load mafredri/zsh-async
-    zgen load tarruda/zsh-autosuggestions
-    zgen load zsh-users/zsh-syntax-highlighting
+zplug 'b4b4r07/epoch-cat', \
+      as:command, \
+      hook-build:'go get -d && go build'
+zplug "junegunn/fzf-bin", \
+      as:command, \
+      from:gh-r, \
+      rename-to:"fzf",
+zplug "moncho/dry", \
+      as:command, \
+      from:gh-r, \
+      rename-to:"dry"
+zplug "stedolan/jq", \
+      as:command, \
+      from:gh-r, \
+      rename-to:jq
+zplug "peco/peco", \
+      as:command, \
+      from:gh-r
+zplug "motemen/ghq", \
+      as:command, \
+      from:gh-r, \
+      rename-to:ghq
+zplug "b4b4r07/git-br", \
+      as:command, \
+      use:'git-br'
+zplug "b4b4r07/httpstat", \
+      as:command, \
+      use:'(*).sh', \
+      rename-to:'$1'
+zplug "jhawthorn/fzy", \
+      as:command, \
+      hook-build:"make && sudo make install"
+zplug "fujiwara/nssh", \
+      as:command, \
+      from:gh-r, \
+      rename-to:"nssh"
 
-    zstyle ':prezto:module:prompt' theme 'paradox'
-    zgen save
+zstyle ':prezto:module:utility:ls'    color 'yes'
+zstyle ':prezto:module:utility:diff'  color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make'  color 'yes'
+
+# intitialize
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
+
+zplug load
 
 # ----------------------------------------
 # path configuration
 # ----------------------------------------
 
-ADDITIONAL_PATH=($HOME/local/bin $HOME/bin /usr/local/bin /usr/local/sbin)
+ADDITIONAL_PATH=($HOME/local/bin $HOME/bin /usr/local/bin /usr/local/sbin $HOME/google-cloud-sdk/bin)
 for p in $ADDITIONAL_PATH; do
     if [ -e $p ]; then
-	export PATH="$p:$PATH"
+	    export PATH="$p:$PATH"
     fi
 done
 
@@ -106,19 +147,6 @@ autoload -Uz is-at-least
 autoload -Uz colors
 
 # ----------------------------------------
-# Keybind
-# ----------------------------------------
-
-# ^P, ^N での検索
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
-
-# ----------------------------------------
 # Less
 # ----------------------------------------
 
@@ -158,31 +186,31 @@ compctl -U -K _z_zsh_tab_completion $_Z_CMD
 unset LSCOLORS
 case "${TERM}" in
     xterm)
-	export TERM=xterm-color
-	;;
+	    export TERM=xterm-color
+	    ;;
     kterm)
-	export TERM=kterm-color
-	# set BackSpace control character
-	stty erase
-	;;
+	    export TERM=kterm-color
+	    # set BackSpace control character
+	    stty erase
+	    ;;
     cons25)
-	unset LANG
-	export LSCOLORS=ExFxCxdxBxegedabagacad
-	export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-	zstyle ':completion:*' list-colors \
-	       'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-	;;
+	    unset LANG
+	    export LSCOLORS=ExFxCxdxBxegedabagacad
+	    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+	    zstyle ':completion:*' list-colors \
+	           'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+	    ;;
 esac
 
 # Terminal のタイトルにカレントディレクトリを追加
 case "$TERM" in
     xterm*|kterm*|rxvt*)
-	PROMPT=$(print "%B%{\e[34m%}%m:%(5~,%-2~/.../%2~,%~)%{\e[33m%}%# %b")
-	PROMPT=$(print "%{\e]2;%n@%m: %~\7%}$PROMPT") # title bar
-	;;
+	    PROMPT=$(print "%B%{\e[34m%}%m:%(5~,%-2~/.../%2~,%~)%{\e[33m%}%# %b")
+	    PROMPT=$(print "%{\e]2;%n@%m: %~\7%}$PROMPT") # title bar
+	    ;;
     *)
-	PROMPT='%m:%c%# '
-	;;
+	    PROMPT='%m:%c%# '
+	    ;;
 esac
 
 # ----------------------------------------
@@ -192,7 +220,7 @@ esac
 # 解凍 http://d.hatena.ne.jp/jeneshicc/20110215/1297778049
 function extract () {
     if [ -f $1 ] ; then
-	case $1 in
+	    case $1 in
             *.tar.bz2)   tar xvjf $1    ;;
             *.tar.gz)    tar xvzf $1    ;;
             *.tar.xz)    tar xvJf $1    ;;
@@ -208,9 +236,9 @@ function extract () {
             *.lzma)      lzma -dv $1    ;;
             *.xz)        xz -dv $1      ;;
             *)           echo "don't know how to extract '$1'..." ;;
-	esac
+	    esac
     else
-	echo "'$1' is not a valid file!"
+	    echo "'$1' is not a valid file!"
     fi
 }
 
@@ -229,15 +257,6 @@ function precmd () {
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 source ~/dotfiles/.zsh/z.sh
-
-# -------------------------------------
-#  named directory
-# -------------------------------------
-
-setopt CDABLE_VARS
-hash -d desktop=$HOME/Desktop
-hash -d doc=$HOME/Documents
-hash -d repos=$HOME/repos
 
 # ---------------------------------------
 #  anyenv
@@ -294,15 +313,33 @@ if type "peco" > /dev/null 2>&1; then
 fi
 
 # ----------------------------------------
-#  zsh prompt theme init
+#  gcloud
 # ----------------------------------------
 
-autoload -Uz promptinit
-promptinit
+if type "gcloud" > /dev/null 2>&1; then
+    GCLOUD_EXECUTABLE_PATH=`where gcloud`
+    GCLOUD_BINDIR_PATH=`dirname $GCLOUD_EXECUTABLE_PATH`
+    GCLOUD_BASE_PATH=`dirname $GCLOUD_BINDIR_PATH`
+
+    source "$GCLOUD_BASE_PATH/path.$SH.inc"
+    source "$GCLOUD_BASE_PATH/completion.$SH.inc"
+fi
+
+# ----------------------------------------
+#  initialize prompt theme
+# ----------------------------------------
+# vcs_info 設定
+RPROMPT=""
+
+autoload -Uz vcs_info
+
+zstyle ':prezto:load' zfunction 'zargs' 'zmv'
+zstyle ':prezto:module:prompt' theme 'paradox' pwd-length 'short'
+
 prompt paradox
 
 # ----------------------------------------
-# zsh precompile
+#  zsh precompile
 # ----------------------------------------
 
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then

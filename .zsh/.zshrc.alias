@@ -26,6 +26,9 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 alias b='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 alias v='code $(ghq root)/$(ghq list | peco)'
 
+# emacs
+alias e='emacs'
+
 # misc unix commands
 alias du="du -h"
 alias df="df -h"
@@ -64,3 +67,16 @@ function iptables () {
 function agsed () {
     ag -l $1 | xargs sed -i '' "s/$1/$2/g"
 }
+
+function gcs () {
+    gcloud config configurations list | tail -n +2 | peco --prompt 'CONFIG>' | read line
+    CONFIG=`echo $line | awk '{ print $1 }'`
+    gcloud config configurations activate $CONFIG
+}
+
+function f () {
+    find `pwd` -print | peco --prompt 'FILE>' | read line
+    cd `dirname $line`
+}
+
+alias -g F='`find . -print | peco --prompt "FILE>"`'
