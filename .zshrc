@@ -29,17 +29,20 @@ source $HOME/dotfiles/zplug/init.zsh
 ZPLUG_PROTOCOL=ssh
 
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "changyuheng/fz", defer:1
 zplug "glidenote/hub-zsh-completion"
-zplug "sorin-ionescu/prezto"
 zplug "modules/prompt", from:prezto
+zplug "modules/utility", from:prezto
 zplug "rupa/z", use:z.sh
+zplug "sorin-ionescu/prezto"
 zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'Valodim/zsh-curl-completion'
 zplug 'b4b4r07/pkill.sh', as:command, use:'pkill.sh', rename-to:'pk'
+
+zplug "zsh-users/zsh-completions", defer:0
+zplug "changyuheng/fz", defer:1
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
 zplug 'b4b4r07/epoch-cat', \
       as:command, \
       hook-build:'go get -d && go build'
@@ -76,6 +79,11 @@ zplug "fujiwara/nssh", \
       as:command, \
       from:gh-r, \
       rename-to:"nssh"
+
+zstyle ':prezto:module:utility:ls'    color 'yes'
+zstyle ':prezto:module:utility:diff'  color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make'  color 'yes'
 
 # intitialize
 if ! zplug check --verbose; then
@@ -320,6 +328,13 @@ fi
 # ----------------------------------------
 #  initialize prompt theme
 # ----------------------------------------
+# vcs_info 設定
+RPROMPT=""
+
+autoload -Uz vcs_info
+
+zstyle ':prezto:load' zfunction 'zargs' 'zmv'
+zstyle ':prezto:module:prompt' theme 'paradox' pwd-length 'short'
 
 prompt paradox
 
