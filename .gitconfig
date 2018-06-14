@@ -12,7 +12,7 @@ editor = emacs -q -nw
 pager = less
 whitespace = trailing-space,space-before-tab,indent-with-non-tab
 excludesfile = ~/.gitignore
-# パーミッションの変更を無視
+# ignore permission changes
 filemode = false
 
 [alias]
@@ -46,7 +46,7 @@ tb = topic-branch
 autocorrect = 1
 
 [push]
-default = simple
+default = current
 
 [ghq]
 root = ~/src
