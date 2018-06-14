@@ -251,7 +251,6 @@
 (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
 
 ;; highlight block
-(require 'ruby-block)
 (setq ruby-block-highlight-toggle t)
 
 ;; slim
