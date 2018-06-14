@@ -3,6 +3,7 @@
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
 (setq-default indent-tabs-mode nil)
+(setq el-get-verbose t)
 (add-hook 'js-mode-hook
           (lambda ()
             (make-local-variable 'js-indent-level)
@@ -33,7 +34,11 @@
          fringe-helper
          git-gutter-fringe
          go-autocomplete
+         go-def
+         go-eldoc
+         go-imports
          go-mode
+         go-test
          haml-mode
          helm
          helm-ag
