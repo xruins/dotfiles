@@ -16,50 +16,58 @@
     (eval-print-last-sexp)))
 
 ;; el-get packages
-(el-get-bundle auto-complete)
-(el-get-bundle coffee-mode)
-(el-get-bundle color-theme)
-(el-get-bundle color-theme-solarized)
-(el-get-bundle dash)
-(el-get-bundle dockerfile-mode)
-(el-get-bundle elpa:ruby-electric)
-(el-get-bundle expand-region)
-(el-get-bundle flycheck)
-(el-get-bundle flycheck-pos-tip)
-(el-get-bundle flymake-easy)
-(el-get-bundle fringe-helper)
-(el-get-bundle git-gutter-fringe)
-(el-get-bundle go-autocomplete)
-(el-get-bundle go-mode)
-(el-get-bundle haml-mode)
-(el-get-bundle helm)
-(el-get-bundle helm-ag)
-(el-get-bundle helm-flycheck)
-(el-get-bundle helm-ghq)
-(el-get-bundle helm-ls-git)
-(el-get-bundle json-mode)
-(el-get-bundle magit)
-(el-get-bundle markdown-mode)
-(el-get-bundle markdown-toc)
-(el-get-bundle nginx-mode)
-(el-get-bundle popwin)
-(el-get-bundle powerline)
-(el-get-bundle protobuf-mode)
-(el-get-bundle rainbow-delimiters)
-(el-get-bundle robe)
-(el-get-bundle robe-mode)
-(el-get-bundle rspec-mode)
-(el-get-bundle rubocop)
-(el-get-bundle ruby-block)
-(el-get-bundle ruby-refactor)
-(el-get-bundle slim-mode)
-(el-get-bundle smart-compile)
-(el-get-bundle visual-regexp)
-(el-get-bundle yaml-mode)
-(el-get-bundle yascroll)
-(el-get-bundle yasnippet)
-(el-get-bundle yatex)
+(setq elget-packages
+      (append
+       ;; list of packages we use straight from official recipes
+       '(
+         auto-complete
+         coffee-mode
+         color-theme
+         color-theme-solarized
+         dash
+         dockerfile-mode
+         expand-region
+         flycheck
+         flycheck-pos-tip
+         flymake-easy
+         fringe-helper
+         git-gutter-fringe
+         go-autocomplete
+         go-mode
+         haml-mode
+         helm
+         helm-ag
+         helm-c-flycheck
+         helm-ghq
+         helm-ls-git
+         helm-robe
+         json-mode
+         magit
+         markdown-mode
+         markdown-toc
+         nginx-mode
+         popwin
+         powerline
+         protobuf-mode
+         rainbow-delimiters
+         robe-mode
+         rspec-mode
+         rubocop
+         ruby-block
+         ruby-electric
+         ruby-refactor
+         slim-mode
+         smart-compile
+         visual-regexp
+         yaml-mode
+         yascroll
+         yasnippet
+         yatex
+         )
+       )
+      )
 
+(el-get 'sync elget-packages)
 ;; initialize emacs-bundled package manager
 (package-initialize)
 
@@ -122,7 +130,7 @@
 
 ;; helm-file
 (defadvice helm-for-files
-  (around helm-for-files-no-highlight activate)
+    (around helm-for-files-no-highlight activate)
   "No highlight when using helm-for-files."
   (let ((helm-mp-highlight-delay nil))
     ad-do-it))
@@ -215,9 +223,9 @@
 (setq ruby-deep-indent-paren-style nil)
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-hook 'ruby-mode-hook
-		  (ruby-electric-mode)
-		  (robe-mode)
-		  (setq ruby-indent-level 2)
+	  (ruby-electric-mode)
+	  (robe-mode)
+	  (setq ruby-indent-level 2)
 	  )
 (define-key ruby-mode-map [return] 'reindent-then-newline-and-indent)
 (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
@@ -294,7 +302,7 @@
 (add-hook 'markdown-mode-hook 'orgtbl-mode)
 (add-hook 'markdown-mode-hook
           #'(lambda()
-          (add-hook 'after-save-hook 'cleanup-org-tables  nil 'make-it-local)))
+              (add-hook 'after-save-hook 'cleanup-org-tables  nil 'make-it-local)))
 
 
 (global-set-key "\M-n" "\C-u1\C-v")
