@@ -107,15 +107,19 @@
 ;; yascroll
 (global-yascroll-bar-mode 1)
 
-;; magit
-(global-set-key (kbd "C-c m") 'magit-status)
-
 ;; keybind
+(global-set-key (kbd "C-@") 'er/expand-region)
+(global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-h") 'left-char)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-l") 'right-char)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-r") 'helm-recentf)
 (global-set-key (kbd "C-z") 'other-window)
+(global-set-key (kbd "M-n") "\C-u1\C-v")
+(global-set-key (kbd "M-p") "\C-u1\M-v")
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; powerline
 (setq powerline-color1 "#073642")
@@ -127,11 +131,6 @@
 (set-face-attribute 'mode-line-inactive nil
                     :box nil)
 (powerline-default-theme)
-
-;; helm
-(define-key global-map (kbd "M-x")     'helm-M-x)
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "C-x C-r") 'helm-recentf)
 
 ;; helm-file
 (defadvice helm-for-files
@@ -146,9 +145,6 @@
     helm-source-file-cache
     helm-source-ghq
     helm-source-files-in-current-dir
-    ;; comment out this is too heavy for me.
-    ;; helm-source-bookmarks
-    ;; helm-source-locate
     ))
 
 ;; better helm-find-files
@@ -289,8 +285,6 @@
 (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook (lambda ()
                           (local-set-key (kbd "M-.") 'godef-jump)))
-(add-to-list 'helm-for-files-preferred-list 'helm-source-ghq)
-(global-set-key (kbd "C-r") 'helm-ghq)
 
 ;; yaml
 (unless (package-installed-p 'yaml-mode)
@@ -308,7 +302,3 @@
 (add-hook 'markdown-mode-hook
           #'(lambda()
               (add-hook 'after-save-hook 'cleanup-org-tables  nil 'make-it-local)))
-
-
-(global-set-key "\M-n" "\C-u1\C-v")
-(global-set-key "\M-p" "\C-u1\M-v")
