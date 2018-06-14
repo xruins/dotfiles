@@ -44,6 +44,7 @@
 (el-get-bundle nginx-mode)
 (el-get-bundle popwin)
 (el-get-bundle powerline)
+(el-get-bundle protobuf-mode)
 (el-get-bundle rainbow-delimiters)
 (el-get-bundle robe)
 (el-get-bundle robe-mode)
@@ -262,6 +263,9 @@
 (unless (package-installed-p 'haml-mode)
   (package-refresh-contents) (package-install 'haml-mode))
 (add-to-list 'auto-mode-alist '("\\.ha?ml?\\'" . haml-mode))
+
+;; protobuf
+(add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
 
 ;; json
 (add-hook 'json-mode-hook
