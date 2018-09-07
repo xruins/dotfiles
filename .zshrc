@@ -135,6 +135,7 @@ setopt share_history         # 端末間で履歴を共有
 setopt hist_ignore_all_dups
 setopt hist_ignore_dups
 setopt hist_save_no_dups
+setopt nonomatch
 
 unsetopt bg_nice             # バックグラウンドジョブを通常の優先度で実行
 
