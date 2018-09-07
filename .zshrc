@@ -249,16 +249,6 @@ function precmd () {
     _z --add "$(pwd -P)"
 }
 
-# ----------------------------------------
-#  include
-# ----------------------------------------
-
-[ -f ~/dotfiles/.zsh/.zshrc.alias ] && source ~/dotfiles/.zsh/.zshrc.alias
-[ -f ~/dotfiles/.zsh/.zshrc.export ] && source ~/dotfiles/.zsh/.zshrc.export
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-source ~/dotfiles/.zsh/z.sh
-
 # ---------------------------------------
 #  anyenv
 # ----------------------------------------
@@ -338,6 +328,16 @@ zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 zstyle ':prezto:module:prompt' theme 'paradox' pwd-length 'short'
 
 prompt paradox
+
+# ----------------------------------------
+#  include
+# ----------------------------------------
+
+[ -f ~/dotfiles/.zsh/.zshrc.alias ] && source ~/dotfiles/.zsh/.zshrc.alias
+[ -f ~/dotfiles/.zsh/.zshrc.export ] && source ~/dotfiles/.zsh/.zshrc.export
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+source ~/dotfiles/.zsh/z.sh
 
 # ----------------------------------------
 #  zsh precompile
