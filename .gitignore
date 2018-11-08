@@ -81,3 +81,15 @@ flycheck_*
 .tags*
 .zshrc.env
 .gitconfig.local
+
+# Created by https://www.gitignore.io/api/code
+
+### Code ###
+# Visual Studio Code - https://code.visualstudio.com/
+.settings/
+.vscode/
+tsconfig.json
+jsconfig.json
+
+
+# End of https://www.gitignore.io/api/code
