@@ -50,13 +50,5 @@ default = current
 
 [ghq]
 root = ~/src
-
 [hub]
-protocol = ssh
-
-[pager]
-diff = "diff-so-fancy | less --tabs=4 -RFX"
-show = "diff-so-fancy | less --tabs=4 -RFX"
-
-[url "git@github.com:"]
-insteadOf = https://github.com/
+	protocol = https
