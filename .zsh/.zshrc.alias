@@ -80,3 +80,7 @@ function f () {
 }
 
 alias -g F='`find . -print | peco --prompt "FILE>"`'
+
+reverse() {
+    perl -e 'print reverse <>' ${@+"$@"}
+}
