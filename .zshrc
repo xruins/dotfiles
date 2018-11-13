@@ -168,8 +168,6 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-autoload -U compinit
-compinit -u -C
 
 # TAB補完の機能をaliasにも追加
 _Z_CMD=j
