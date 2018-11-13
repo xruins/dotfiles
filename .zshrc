@@ -74,25 +74,7 @@ zplug "b4b4r07/httpstat", \
 zplug "jhawthorn/fzy", \
       as:command, \
       hook-build:"make && sudo make install"
-zplug "fujiwara/nssh", \
-      as:command, \
-      from:gh-r, \
-      rename-to:"nssh"
 
-zstyle ':prezto:module:utility:ls'    color 'yes'
-zstyle ':prezto:module:utility:diff'  color 'yes'
-zstyle ':prezto:module:utility:wdiff' color 'yes'
-zstyle ':prezto:module:utility:make'  color 'yes'
-
-# intitialize
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
 
 # ----------------------------------------
 # path configuration
@@ -155,22 +137,6 @@ SRC_HIGHLIGHT_PATH="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 # for macOS w/ homebrew script
 SRC_HIGHLIGHT_PATH_OSX="/usr/local/bin/src-hilite-lesspipe.sh"
 [ -x ${SRC_HIGHLIGHT_PATH_OSX} ] && export LESSOPEN="| ${SRC_HIGHLIGHT_PATH_OSX} %s"
-
-# ----------------------------------------
-# Completion
-# ----------------------------------------
-
-fpath=(~/.zsh/completion $fpath)
-
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-
-# TAB補完の機能をaliasにも追加
-_Z_CMD=j
-compctl -U -K _z_zsh_tab_completion $_Z_CMD
 
 # ----------------------------------------
 # Appearance
@@ -305,9 +271,51 @@ if type "gcloud" > /dev/null 2>&1; then
     GCLOUD_BINDIR_PATH=`dirname $GCLOUD_EXECUTABLE_PATH`
     GCLOUD_BASE_PATH=`dirname $GCLOUD_BINDIR_PATH`
 
-    source "$GCLOUD_BASE_PATH/path.$SH.inc"
-    source "$GCLOUD_BASE_PATH/completion.$SH.inc"
+    source "$GCLOUD_BASE_PATH/path.$SH.inc" > /dev/null 2>&1
+    source "$GCLOUD_BASE_PATH/completion.$SH.inc" > /dev/null 2>&1
 fi
+
+# ----------------------------------------
+#  include
+# ----------------------------------------
+
+[ -f ~/dotfiles/.zsh/.zshrc.alias ] && source ~/dotfiles/.zsh/.zshrc.alias
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+source ~/dotfiles/.zsh/z.sh
+
+# ----------------------------------------
+#  zplug
+# ----------------------------------------
+
+zstyle ':prezto:module:utility:ls'    color 'yes'
+zstyle ':prezto:module:utility:diff'  color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make'  color 'yes'
+
+if [ ! ~/.zplug/last_zshrc_check_time -nt ~/.zshrc ]; then
+    touch ~/.zplug/last_zshrc_check_time
+    if ! zplug check --verbose; then
+        printf "Install? [y/N]: "
+        if read -q; then
+            echo; zplug install
+        fi
+    fi
+fi
+
+zplug load
+
+# ----------------------------------------
+# Completion
+# ----------------------------------------
+
+fpath=(~/.zsh/completion $fpath)
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 
 # ----------------------------------------
 #  initialize prompt theme
@@ -323,15 +331,9 @@ zstyle ':prezto:module:prompt' theme 'paradox' pwd-length 'short'
 
 prompt paradox
 
-# ----------------------------------------
-#  include
-# ----------------------------------------
-
-[ -f ~/dotfiles/.zsh/.zshrc.alias ] && source ~/dotfiles/.zsh/.zshrc.alias
-[ -f ~/dotfiles/.zsh/.zshrc.export ] && source ~/dotfiles/.zsh/.zshrc.export
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-source ~/dotfiles/.zsh/z.sh
+# TAB補完の機能をaliasにも追加
+_Z_CMD=j
+compctl -U -K _z_zsh_tab_completion $_Z_CMD
 
 # ----------------------------------------
 #  zsh precompile
