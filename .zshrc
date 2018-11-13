@@ -288,11 +288,6 @@ source ~/dotfiles/.zsh/z.sh
 #  zplug
 # ----------------------------------------
 
-zstyle ':prezto:module:utility:ls'    color 'yes'
-zstyle ':prezto:module:utility:diff'  color 'yes'
-zstyle ':prezto:module:utility:wdiff' color 'yes'
-zstyle ':prezto:module:utility:make'  color 'yes'
-
 if [ ! ~/.zplug/last_zshrc_check_time -nt ~/.zshrc ]; then
     touch ~/.zplug/last_zshrc_check_time
     if ! zplug check --verbose; then
@@ -328,6 +323,10 @@ autoload -Uz vcs_info
 
 zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 zstyle ':prezto:module:prompt' theme 'paradox' pwd-length 'short'
+zstyle ':prezto:module:utility:ls'    color 'yes'
+zstyle ':prezto:module:utility:diff'  color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make'  color 'yes'
 
 prompt paradox
 
