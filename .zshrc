@@ -26,7 +26,6 @@ SH=`basename $SHELL`
 # ----------------------------------------
 
 source $HOME/dotfiles/zplug/init.zsh
-ZPLUG_PROTOCOL=ssh
 
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "glidenote/hub-zsh-completion"
