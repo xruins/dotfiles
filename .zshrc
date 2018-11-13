@@ -279,10 +279,8 @@ fi
 #  include
 # ----------------------------------------
 
-[ -f ~/dotfiles/.zsh/.zshrc.alias ] && source ~/dotfiles/.zsh/.zshrc.alias
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-source ~/dotfiles/.zsh/z.sh
+source ~/dotfiles/.zsh/.zshrc.alias > /dev/null 2>&1
+source ~/.zshrc.local > /dev/null 2>&1
 
 # ----------------------------------------
 #  zplug
