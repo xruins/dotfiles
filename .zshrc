@@ -139,10 +139,6 @@ setopt nonomatch
 
 unsetopt bg_nice             # バックグラウンドジョブを通常の優先度で実行
 
-# vcs_info 設定
-RPROMPT=""
-
-autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors
@@ -319,6 +315,7 @@ fi
 # ----------------------------------------
 #  initialize prompt theme
 # ----------------------------------------
+
 # vcs_info 設定
 RPROMPT=""
 
