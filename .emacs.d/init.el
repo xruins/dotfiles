@@ -211,8 +211,6 @@
 (setq auto-save-default nil)
 
 ;; markdown
-(unless (package-installed-p 'markdown-mode)
-  (package-refresh-contents) (package-install 'markdown-mode))
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md$" . markdown-mode) auto-mode-alist))
 
@@ -262,13 +260,9 @@
 (setq ruby-block-highlight-toggle t)
 
 ;; slim
-(unless (package-installed-p 'slim-mode)
-  (package-refresh-contents) (package-install 'slim-mode))
 (add-to-list 'auto-mode-alist '("\\.slim?\\'" . slim-mode))
 
 ;; haml
-(unless (package-installed-p 'haml-mode)
-  (package-refresh-contents) (package-install 'haml-mode))
 (add-to-list 'auto-mode-alist '("\\.ha?ml?\\'" . haml-mode))
 
 ;; protobuf
@@ -286,8 +280,6 @@
                           (local-set-key (kbd "M-.") 'godef-jump)))
 
 ;; yaml
-(unless (package-installed-p 'yaml-mode)
-  (package-refresh-contents) (package-install 'yaml-mode))
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 (define-key yaml-mode-map (kbd "C-m") 'newline-and-indent)
