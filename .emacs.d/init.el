@@ -67,7 +67,6 @@
          yaml-mode
          yascroll
          yasnippet
-         yatex
          )
        )
       )
