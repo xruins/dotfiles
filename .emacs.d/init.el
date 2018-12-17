@@ -211,7 +211,6 @@
 ;; fundamental settings for Ruby
 (autoload 'ruby-mode "ruby-mode")
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.schema\\'" . ruby-mode)) ;; ridgepole schema files
 (setq ruby-deep-indent-paren-style nil)
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-hook 'ruby-mode-hook
