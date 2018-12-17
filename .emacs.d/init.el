@@ -235,10 +235,6 @@
     (robe yaml-mode slim-mode markdown-mode helm-flycheck haml-mode)))
  '(ruby-insert-encoding-magic-comment nil))
 
-;; rspec
-(autoload 'rspec-mode "rspec-mode")
-(add-hook 'ruby-mode-hook 'rspec-mode)
-
 ;; auto-complete
 (global-auto-complete-mode t)
 
