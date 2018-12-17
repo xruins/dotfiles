@@ -22,7 +22,6 @@
        ;; list of packages we use straight from official recipes
        '(
          auto-complete
-         coffee-mode
          color-theme
          color-theme-solarized
          dash
@@ -30,8 +29,6 @@
          flycheck
          flycheck-pos-tip
          flymake-easy
-         fringe-helper
-         git-gutter-fringe
          go-autocomplete
          go-def
          go-eldoc
@@ -45,7 +42,7 @@
          helm-ghq
          helm-ls-git
          helm-robe
-         ht
+         ht ;; lsp dependency
          json-mode
          magit
          markdown-mode
@@ -55,18 +52,15 @@
          powerline
          protobuf-mode
          rainbow-delimiters
-         robe-mode
-         rspec-mode
          rubocop
          ruby-block
          ruby-electric
          ruby-refactor
          slim-mode
          smart-compile
-         spinner
+         spinner ;; lsp dependency
          visual-regexp
          yaml-mode
-         yascroll
          yasnippet
          )
        )
