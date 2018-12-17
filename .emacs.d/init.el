@@ -168,10 +168,6 @@
     )
   )
 
-;; smart-compile
-(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
-
 ;; recentf
 (setq recentf-max-saved-items 2000) ;; 2000ファイルまで履歴保存する
 (setq recentf-auto-cleanup 'never)  ;; 存在しないファイルは消さない
@@ -249,10 +245,6 @@
 (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
-
-;; smart-compile
-(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
 
 ;; highlight block
 (setq ruby-block-highlight-toggle t)
