@@ -41,8 +41,8 @@
          helm-c-flycheck
          helm-ghq
          helm-ls-git
-         helm-robe
          ht ;; lsp dependency
+         inf-ruby
          json-mode
          magit
          markdown-mode
@@ -167,8 +167,8 @@
   )
 
 ;; recentf
-(setq recentf-max-saved-items 2000) ;; 2000ファイルまで履歴保存する
-(setq recentf-auto-cleanup 'never)  ;; 存在しないファイルは消さない
+(setq recentf-max-saved-items 2000)
+(setq recentf-auto-cleanup 'never)
 (setq recentf-exclude '("/recentf" "COMMIT_EDITMSG" "/.?TAGS" "^/sudo:" "/\\.emacs\\.d/games/*-scores" "/\\.emacs\\.d/\\.cask/"))
 (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
 (recentf-mode 1)
@@ -182,16 +182,8 @@
 (setq show-paren-delay 0)
 (setq show-paren-style 'mixed)
 
-;; git-gutter
-;; (git-gutter:linum-setup)
-;; (global-git-gutter-mode t)
-;; (global-set-key (kbd "C-x C-g") 'git-gutter)
-;; (global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
-;; (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-;; (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
-;; (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
-;; (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
-;; (global-set-key (kbd "C-x v SPC") 'git-gutter:mark-hunk)
+;; rainbow delimiters
+(rainbow-delimiters-mode)
 
 ;; delete trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -220,13 +212,6 @@
 (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (robe yaml-mode slim-mode markdown-mode helm-flycheck haml-mode)))
  '(ruby-insert-encoding-magic-comment nil))
 
 ;; auto-complete
