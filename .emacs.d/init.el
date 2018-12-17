@@ -45,6 +45,7 @@
          helm-ghq
          helm-ls-git
          helm-robe
+         ht
          json-mode
          magit
          markdown-mode
@@ -62,6 +63,7 @@
          ruby-refactor
          slim-mode
          smart-compile
+         spinner
          visual-regexp
          yaml-mode
          yascroll
@@ -69,6 +71,8 @@
          )
        )
       )
+
+(el-get-bundle emacs-lsp/lsp-mode)
 
 (el-get 'sync elget-packages)
 ;; initialize emacs-bundled package manager
@@ -264,9 +268,11 @@
             (setq js-indent-level 2)))
 
 ;; go
+(require 'lsp-clients)
 (add-hook 'before-save-hook 'gofmt-before-save)
-(add-hook 'go-mode-hook (lambda ()
-                          (local-set-key (kbd "M-.") 'godef-jump)))
+(add-hook 'go-mode-hook 'lsp)
+(add-hook 'go-mode-hook '(define-key (kbd "M-.") 'godef-jump))
+(add-hook 'go-mode-hook '(define-key (kbd "M-,") 'pop-tag-mark))
 
 ;; yaml
 (require 'yaml-mode)
