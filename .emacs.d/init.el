@@ -27,7 +27,6 @@
          color-theme-solarized
          dash
          dockerfile-mode
-         expand-region
          flycheck
          flycheck-pos-tip
          flymake-easy
@@ -107,7 +106,6 @@
 (global-yascroll-bar-mode 1)
 
 ;; keybind
-(global-set-key (kbd "C-@") 'er/expand-region)
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-h") 'left-char)
 (global-set-key (kbd "C-j") 'next-line)
