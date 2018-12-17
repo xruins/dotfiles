@@ -176,7 +176,7 @@
 (recentf-mode 1)
 
 ;; linum
-(setq linum-format "%3d ")
+(setq linum-format "%5d ")
 (global-linum-mode t)
 
 ;; show-paren-mode
