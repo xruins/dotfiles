@@ -1,4 +1,4 @@
-j#!/bin/bash
+#!/bin/bash
 
 IGNORE_LIST=(.git .config .gitmodules)
 
