@@ -1,4 +1,4 @@
-#!/bin/bash
+j#!/bin/bash
 
 IGNORE_LIST=(.git .config .gitmodules)
 
@@ -37,7 +37,7 @@ done
 # make symbolic links for directories under ".config/"
 for file in $(ls -A .config)
 do
-        make_symlink $file $HOME/.config/$file
+        make_symlink .config/$file $HOME/.config/$file
 done
 
 touch ~/.z
