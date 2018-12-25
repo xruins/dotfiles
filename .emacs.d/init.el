@@ -4,10 +4,7 @@
 
 (setq-default indent-tabs-mode nil)
 (setq el-get-verbose t)
-(add-hook 'js-mode-hook
-          (lambda ()
-            (make-local-variable 'js-indent-level)
-            (setq js-indent-level 2)))
+
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
