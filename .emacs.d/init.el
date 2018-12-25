@@ -114,14 +114,6 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; powerline
-(setq powerline-color1 "#073642")
-(setq powerline-color2 "#002b36")
-(set-face-attribute 'mode-line nil
-                    :foreground "#fdf6e3"
-                    :background "#2aa198"
-                    :box nil)
-(set-face-attribute 'mode-line-inactive nil
-                    :box nil)
 (powerline-default-theme)
 
 ;; helm-file
