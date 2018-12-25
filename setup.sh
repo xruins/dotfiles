@@ -13,6 +13,23 @@ RED="\033[0;31m"
 GREEN="\033[0;32m"
 RESET="\033[0m"
 
+function execute_pp () {
+    local cmd="$1"
+    local out=$(${cmd} 2>&1)
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ successfuly executed ${cmd}${RESET}"
+        return 1
+    else
+        echo -e "${RED}✗ failed to execute from ${cmd}\nOUTPUT: ${out}"
+        return 0
+    fi
+}
+
+function notice () {
+    local text="$1"
+    echo -e "📝 ${text}"
+}
+
 function make_symlink () {
     local src="$1"
     local dst="$2"
@@ -21,8 +38,10 @@ function make_symlink () {
     local out=$(${cmd} 2>&1)
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ successfully created symlink from ${src} to ${dst}${RESET}"
+        return 0
     else
         echo -e "${RED}✗ failed to created symlink from ${src} to ${dst}${RESET}\nCOMMAND: ${cmd}\nOUTPUT: ${out}"
+        return 1
     fi
 }
 
@@ -40,4 +59,13 @@ do
         make_symlink .config/$file $HOME/.config/$file
 done
 
-touch ~/.z
+
+# chsh for fish and install oh-my-fish
+if [ -x $(command -v fish) ]; then
+    notice "attempts to change default shell since found fish executable. your password may be required."
+    chsh -s $(command -v fish)
+    notice "attempts to install oh-my-fish."
+    execute_pp "curl -L http://get.oh-my.fish | fish"
+else
+    notice "skip to change default shell since lacks fish executable."
+fi
