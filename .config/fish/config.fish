@@ -34,6 +34,13 @@ function fish_user_key_bindings
   bind \cf peco_change_directory
 end
 
-# passing PATH to anyenv
+# PATH
+set -U fish_user_paths $fish_user_paths $HOME/bin
+
+# anyenv
 set -x PATH $HOME/.anyenv/bin $PATH
 eval (anyenv init - | source)
+
+# golang
+set -Ux GOPATH $HOME
+set -U fish_user_paths $fish_user_paths $GOPATH/bin
