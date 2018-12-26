@@ -33,3 +33,7 @@ end
 function fish_user_key_bindings
   bind \cf peco_change_directory
 end
+
+# passing PATH to anyenv
+set -x PATH $HOME/.anyenv/bin $PATH
+eval (anyenv init - | source)
