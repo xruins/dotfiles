@@ -66,6 +66,10 @@
 (el-get-bundle emacs-lsp/lsp-mode)
 
 (el-get 'sync elget-packages)
+
+;; disable build of magit document
+(add-to-list 'el-get-sources '(:name magit :info nil))
+
 ;; initialize emacs-bundled package manager
 (package-initialize)
 
