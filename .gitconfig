@@ -4,16 +4,12 @@ path = ~/.gitconfig.local
 [color]
 ui = true
 
-[merge]
-tool = meld
-
 [core]
 editor = emacs -q -nw
 pager = less
 whitespace = trailing-space,space-before-tab,indent-with-non-tab
 excludesfile = ~/.gitignore
-# ignore permission changes
-filemode = false
+filemode = false # ignore permission changes
 
 [alias]
 a  = add
@@ -50,5 +46,11 @@ default = current
 
 [ghq]
 root = ~/src
+
 [hub]
-	protocol = https
+protocol = https
+
+[credential]
+helper = gnomekeyring
+helper = osxkeychain
+helper = cache --timeout 86400
