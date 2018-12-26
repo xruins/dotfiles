@@ -59,11 +59,11 @@ do
         make_symlink .config/$file $HOME/.config/$file
 done
 
-
+fish=$(command -v fish)
 # chsh for fish and install oh-my-fish
-if [ -x $(command -v fish) ]; then
+if [ $? -eq 0 ]; then
     notice "attempts to change default shell since found fish executable. your password may be required."
-    chsh -s $(command -v fish)
+    chsh -s ${fish}
     notice "attempts to install oh-my-fish."
     execute_pp "curl -L http://get.oh-my.fish | fish"
 else
