@@ -51,6 +51,6 @@ root = ~/src
 protocol = https
 
 [credential]
-helper = gnomekeyring
-helper = osxkeychain
+helper = osxkeychain 2>/dev/null
+helper = gnomekeyring 2>/dev/null
 helper = cache --timeout 86400
