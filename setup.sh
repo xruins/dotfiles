@@ -34,7 +34,7 @@ function make_symlink () {
     local src="$1"
     local dst="$2"
 
-    local cmd="ln -s $2 $1"
+    local cmd="ln -s $1 $2"
     local out=$(${cmd} 2>&1)
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ successfully created symlink from ${src} to ${dst}${RESET}"
@@ -49,14 +49,14 @@ function make_symlink () {
 for file in $(ls -A .)
 do
     if !(contains "${file}" ${IGNORE_LIST[@]}); then
-        make_symlink $file $HOME/$file
+        make_symlink $(realpath $file) $HOME/$file
     fi
 done
 
 # make symbolic links for directories under ".config/"
 for file in $(ls -A .config)
 do
-        make_symlink .config/$file $HOME/.config/$file
+        make_symlink $(realpath .config/$file) $HOME/.config/$file
 done
 
 fish=$(command -v fish)
