@@ -64,6 +64,7 @@
       )
 
 (el-get-bundle emacs-lsp/lsp-mode)
+(el-get-bundle wwwjfy/emacs-fish)
 
 (el-get 'sync elget-packages)
 
