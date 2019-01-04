@@ -38,6 +38,14 @@
     :ensure t)
   (use-package go-guru
     :ensure t)
+  (use-package lsp-go
+    :after (lsp-mode go-mode)
+    :custom (lsp-go-language-server-flags '(
+					    "-gocodecompletion"
+					    "-diagnostics"
+					    "-lint-tool=golint"))
+    :hook (go-mode . lsp-go-enable)
+    :commands lsp-go-enable)
   (setq godef-command "godef")
   (setq gofmt-command "gofmt")
   (setq go-guru-debug t)
@@ -46,4 +54,6 @@
   (setq flycheck-check-syntax-automatically t)
   (add-to-list 'company-backends '(company-go :with company-dabbrev-code))
   (setq company-transformers '(company-sort-by-backend-importance))
-  (add-hook 'before-save-hook 'gofmt-before-save))
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  )
+)
