@@ -32,6 +32,8 @@
     :ensure t)
   (use-package company-go
     :ensure t)
+  (use-package flycheck
+    :ensure t)
   (use-package go-eldoc
     :ensure t)
   (use-package golint
@@ -46,14 +48,13 @@
 					    "-lint-tool=golint"))
     :hook (go-mode . lsp-go-enable)
     :commands lsp-go-enable)
+  (global-flycheck-mode)
   (setq godef-command "godef")
   (setq gofmt-command "gofmt")
   (setq go-guru-debug t)
   (setq company-go-show-annotation t)
-  (flycheck-mode)
   (setq flycheck-check-syntax-automatically t)
   (add-to-list 'company-backends '(company-go :with company-dabbrev-code))
   (setq company-transformers '(company-sort-by-backend-importance))
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
-)
