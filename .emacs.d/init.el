@@ -1,4 +1,15 @@
+(menu-bar-mode -1)
+(show-paren-mode 1)
+(setq show-paren-style 'mixed)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq read-file-name-completion-ignore-case t)
+(setq next-line-add-newlines nil)
+(setq make-backup-files nil)
+(setq vc-follow-syslinks t)
+(global-auto-revert-mode 1)
+
 (require 'package)
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -19,15 +30,36 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(use-package server
+  :ensure t
+  :config
+  (unless (server-running-p)
+    (server-start))
+  )
+
 ;;;;; change the place for Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(use-package auto-complete-config
+  :ensure auto-complete
+  :init
+  (global-auto-complete-mode 1)
+  )
+
+(use-package solarized-theme
+;;  :custom
+;;  (solarized-use-variable-pitch nil)
+;;  (x-underline-at-descent-line t)
+  :init
+  (load-theme 'solarized-dark t))
+
 ;;;; modifier keys
 (when (eq system-type 'darwin)
   (setq ns-command-modifier (quote meta)))
 
+;;;; keybinds
 (global-set-key (kbd "C-h") 'left-char)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-k") 'previous-line)
@@ -35,15 +67,11 @@
 
 (define-key global-map (kbd "C-z") 'other-window)
 (define-key global-map (kbd "C-t") 'other-window)
-(use-package tramp
-  :config
-  (setq tramp-persistency-file-name (concat my:d:tmp "tramp"))
-  )
+
 (use-package linum
-  :ensure t)
-(global-linum-mode 1)
-;;;;; duplicated from https://github.com/ymotongpoo/dotfiles
-;;;;; Thanks @ymotongpoo
+  :ensure t
+  :init
+  (global-linum-mode 1))
 
 (use-package yasnippet
   :ensure t
@@ -60,37 +88,6 @@
   :commands
   (yas-minor-mode yas-global-mode))
 
-(use-package tramp
-  :config
-  (setq tramp-persistency-file-name (concat my:d:tmp "tramp"))
-  )
-;;;;; start Emacs server
-(use-package server
-  :ensure t
-  :config
-  (unless (server-running-p)
-    (server-start))
-  (when (display-graphic-p)
-    (add-to-list 'default-frame-alist '(font . "Source Han Code JP 12"))
-    (set-face-attribute 'default nil :font "Source Han Code JP 12")))
-)
-
-(my:disable-builtin-mode 'tool-bar-mode)
-(my:disable-builtin-mode 'scroll-bar-mode)
-(my:disable-builtin-mode 'menu-bar-mode)
-(my:disable-builtin-mode 'blink-cursor-mode)
-(my:disable-builtin-mode 'column-number-mode)
-
-(show-paren-mode +1)
-(setq show-paren-style 'mixed)
-(fset 'yes-or-no-p 'y-or-n-p)
-(setq read-file-name-completion-ignore-case t)
-(setq next-line-add-newlines nil)
-(setq make-backup-files nil)
-(setq vc-follow-syslinks t)
-(global-auto-revert-mode 1)
-
-		  
 (use-package helm
   :ensure t
   :bind (("M-x" . helm-M-x)
@@ -108,11 +105,11 @@
 	      ("C-e" . helm-end-of-buffer))
   :config (progn
 	    (setq helm-buffers-fuzzy-matching t)
-(use-package yaml-mode
-  :ensure t
-  :mode ("\\.ya?ml\\'" . yaml-mode))
-;;;;; duplicated from https://github.com/ymotongpoo/dotfiles
-;;;;; Thanks @ymotongpoo
+	    (use-package yaml-mode
+	      :ensure t
+	      :mode ("\\.ya?ml\\'" . yaml-mode))
+	    )
+  )
 
 (use-package go-mode
   :ensure t
@@ -171,44 +168,12 @@
   (setq company-transformers '(company-sort-by-backend-importance))
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
-(use-package markdown-mode
-  :ensure t
-  :mode ("\\.md\\'" . markdown-mode))
-(use-package elixir-mode
-  :ensure t
-  :defer t
-  :mode
-  ("\\.exs?$" . go-mode)
-  :commands
-  (elixir-mode)
-   :bind
-   (:map go-mode-map
-   	("M-." . godef-jump)
-   	("C-c C-r" . go-remove-unused-imports)
-   	("C-c i" . go-goto-imports)
-   	("C-c d" . godoc)
-   	("C-c l" . golint))
-  :init
-  ;; (add-hook 'go-mode-hook
-  ;; 	    (lambda ()
-  ;; 	      (setq tab-width 4)
-  ;; 	      (setq c-basic-offset 4)
-  ;; 	      (setq indent-tabs-mode t)
-  ;; 	      (if (not (string-match "go" compile-command))
-  ;; 		  (set (make-local-variable 'compile-command)
-  ;; 		       "go generate && go build -v && go test -v && go vet"))
-  ;; 	      (company-mode)
-  ;; 	      (go-eldoc-setup)
-  ;; 	      (go-guru-hl-identifier-mode)))
-  :config
-  (use-package alchemist
-    :ensure t)
-  (use-package ac-alchemist
-    :ensure t)
-  (use-package flycheck-elixir
-    :ensure t)
-  (use-package 
-    :ensure t)
-  (use-package go-guru
-    :ensure t)
-)
+
+(use-package json-mode)
+
+(use-package markdown-mode)
+
+(use-package protobuf-mode)
+(use-package ruby-mode)
+(use-package toml-mode)
+(use-package yaml-mode)
