@@ -34,7 +34,7 @@
 (setq make-backup-files nil)
 (setq vc-follow-syslinks t)
 (global-auto-revert-mode 1)
-
+(setq gc-cons-threshold (* gc-cons-threshold 10))
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -48,9 +48,10 @@
 (setq-default indent-tabs-mode nil)
 
 (use-package solarized-theme
-  ;;  :custom
-  ;;  (solarized-use-variable-pitch nil)
-  ;;  (x-underline-at-descent-line t)
+  :ensure t
+  :custom
+  (solarized-use-variable-pitch nil)
+  (x-underline-at-descent-line t)
   :init
   (load-theme 'solarized-dark t))
 
@@ -198,9 +199,9 @@
 (use-package lsp-go
   :after (lsp-mode go-mode)
   :custom (lsp-go-language-server-flags '(
-    "-gocodecompletion"
-    "-diagnostics"
-    "-lint-tool=golint"))
+                                          "-gocodecompletion"
+                                          "-diagnostics"
+                                          "-lint-tool=golint"))
   :hook (go-mode . lsp-go-enable)
   :commands lsp-go-enable)
 
