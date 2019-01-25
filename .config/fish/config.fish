@@ -7,12 +7,13 @@ function fish_user_key_bindings
 end
 
 # PATH
-set -U fish_user_paths $fish_user_paths $HOME/bin
+set -Ux fish_user_paths $fish_user_paths $HOME/bin
 
 # anyenv
-set -x PATH $HOME/.anyenv/bin $PATH
-eval (anyenv init - | source)
+set -Ux fish_user_paths $fish_user_paths $HOME/.anyenv/bin
+if [[ -x anyenv ]]; then
+   eval (anyenv init - | source)
+fi
 
 # golang
 set -Ux GOPATH $HOME
-set -U fish_user_paths $fish_user_paths $GOPATH/bin
