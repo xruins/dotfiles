@@ -7,11 +7,11 @@ function fish_user_key_bindings
 end
 
 # PATH
-set -Ux fish_user_paths $fish_user_paths $HOME/bin
+set -U fish_user_paths $fish_user_paths $HOME/bin
 
 # anyenv
-set -Ux fish_user_paths $fish_user_paths $HOME/.anyenv/bin
 if [[ -x anyenv ]]; then
+   set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
    eval (anyenv init - | source)
 fi
 
