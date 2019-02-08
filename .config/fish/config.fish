@@ -8,7 +8,7 @@ end
 
 # PATH
 set -U fish_user_paths $fish_user_paths $HOME/bin
-
+set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
 # anyenv
 if test -x anyenv
    set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
@@ -17,3 +17,7 @@ end
 
 # golang
 set -Ux GOPATH $HOME
+set -U fish_user_paths $fish_user_paths $GOPATH/bin
+set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
+
+set -x PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/platform/google_appengine $PATH
