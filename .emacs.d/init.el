@@ -194,7 +194,7 @@
     :ensure t)
   (use-package golint
     :ensure t)
-  (add-hook 'before-save-hook #'gofmt-before-save))
+  (add-hook 'before-save-hook 'lsp-format-buffer))
 
 (use-package lsp-go
   :after (lsp-mode go-mode)
@@ -204,7 +204,6 @@
                                           "-lint-tool=golint"))
   :hook (go-mode . lsp-go-enable)
   :commands lsp-go-enable)
-
 
 (use-package json-mode
   :ensure t)
