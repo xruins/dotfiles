@@ -71,7 +71,9 @@
 (use-package linum
   :ensure t
   :init
-  (global-linum-mode 1))
+  (global-linum-mode 1)
+  (setq linum-format "%4d ")
+  )
 
 (use-package yasnippet
   :ensure t
