@@ -9,3 +9,5 @@ recentf
 kkcrc
 /.lsp-session*
 /custom.el
+/custom.el*
+/games
