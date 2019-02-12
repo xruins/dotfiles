@@ -210,6 +210,12 @@
 (use-package json-mode
   :ensure t)
 
+(use-package fish-mode
+  :ensure t
+  :mode ("\\.fish\\'" . fish-mode)
+  :hook (fish-mode . (lambda ()
+                       (add-hook 'before-save-hook 'fish_indent-before-save))))
+
 (use-package protobuf-mode
   :ensure t)
 
