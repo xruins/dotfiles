@@ -15,10 +15,10 @@ end
 # PATH
 set -U fish_user_paths $fish_user_paths $HOME/bin
 set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
+
 # anyenv
-if test -x anyenv
-    set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
-    eval (anyenv init - | source)
+if type -q anyenv
+   eval (anyenv init - | source)
 end
 
 # golang
