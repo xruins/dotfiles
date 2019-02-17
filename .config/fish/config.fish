@@ -28,12 +28,17 @@ set -U fish_user_paths $fish_user_paths $GOPATH/bin
 set -U PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/platform/google_appengine $PATH
 
 # Google Cloud SDK
-if test -x gcloud
+if type -q gcloud
     if test -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
         set -U GCLOUD_ROOT_PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
     else if test -d ~/google-cloud-sdk
         set -U GCLOUD_ROOT_PATH ~/google-cloud-sdk
+    else if test -d /usr/share/google-cloud-sdk/
+        set -U GCLOUD_ROOT_PATH /usr/share/google-cloud-sdk
     end
-    bass source "{$GCLOUD_ROOT_PATH}/completion.bash.inc"
-    source "{$GCLOUD_ROOT_PATH]/path.fish.inc"
+    if test -n $GCLOUD_ROOT_PATH
+        for f in $GCLOUD_ROOT_PATH/*.fish.inc
+            source $f
+        end
+    end
 end
