@@ -1,17 +1,34 @@
-(require 'package)
-(package-initialize)
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-	("melpa" . "http://melpa.org/packages/")
-	("org" . "http://orgmode.org/elpa/")))
+(setq
+ package-enable-at-startup nil
+ package-archives
+ '(("melpa-stable" . "http://stable.melpa.org/packages/")
+   ("melpa" . "http://melpa.org/packages/")
+   ("marmalade"   . "http://marmalade-repo.org/packages/")
+   ("org"         . "http://orgmode.org/elpa/")
+   ("gnu"         . "http://elpa.gnu.org/packages/")
+   ("sc"   . "http://joseito.republika.pl/sunrise-commander/")))
 
-(unless package-archive-contents
-  (package-refresh-contents))
+(eval-when-compile
+  (require 'package)
+  (package-initialize t))
+(unless (boundp 'package-pinned-packages)
+  (setq package-pinned-packages ()))
 
-;;;;; ensure to use use-package
-(when (not (package-installed-p 'use-package))
-  (package-install 'use-package))
-(require 'use-package)
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
+
+(eval-when-compile
+  (require-package 'use-package)
+  (require 'use-package))
 
 (use-package server
   :ensure t
@@ -19,11 +36,6 @@
   (unless (server-running-p)
     (server-start))
   )
-
-;;;;; change the place for Custom
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
 
 (menu-bar-mode -1)
 (show-paren-mode 1)
@@ -239,3 +251,19 @@
   :mode "/Dockerfile\\'")
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (dockerfile-mode elixir-mode markdown-mode yaml-mode protobuf-mode fish-mode json-mode go-mode git-timemachine magit rainbow-mode rainbow-delimiters anzu flycheck company yasnippet solarized-theme use-package)))
+ '(solarized-use-variable-pitch nil)
+ '(x-underline-at-descent-line t t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
