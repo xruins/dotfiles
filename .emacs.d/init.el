@@ -235,7 +235,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dockerfile-mode elixir-mode markdown-mode yaml-mode protobuf-mode fish-mode json-mode go-mode git-timemachine magit rainbow-mode rainbow-delimiters anzu flycheck company yasnippet solarized-theme use-package)))
+    (golint company-go dockerfile-mode elixir-mode markdown-mode yaml-mode protobuf-mode fish-mode json-mode go-mode git-timemachine magit rainbow-mode rainbow-delimiters anzu flycheck company yasnippet solarized-theme use-package)))
  '(solarized-use-variable-pitch nil)
  '(x-underline-at-descent-line t t))
 (custom-set-faces
