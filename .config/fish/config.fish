@@ -1,3 +1,6 @@
+# set shell for WSL
+set -x SHELL (command -v fish)
+
 # fisherman
 if not functions -q fisher
     set -q XDG_CONFIG_HOME
