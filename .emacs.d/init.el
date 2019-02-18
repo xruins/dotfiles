@@ -1,34 +1,11 @@
-(setq
- package-enable-at-startup nil
- package-archives
- '(("melpa-stable" . "http://stable.melpa.org/packages/")
-   ("melpa" . "http://melpa.org/packages/")
-   ("marmalade"   . "http://marmalade-repo.org/packages/")
-   ("org"         . "http://orgmode.org/elpa/")
-   ("gnu"         . "http://elpa.gnu.org/packages/")
-   ("sc"   . "http://joseito.republika.pl/sunrise-commander/")))
+;; initialize use-package
+(require 'package)
+(add-to-list 'package-archives '("melpa"."http://melpa.org/packages/"))
+(package-initialize)
+(unless package-archive-contents (package-refresh-contents))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-(eval-when-compile
-  (require 'package)
-  (package-initialize t))
-(unless (boundp 'package-pinned-packages)
-  (setq package-pinned-packages ()))
-
-(defun require-package (package &optional min-version no-refresh)
-  "Install given PACKAGE, optionally requiring MIN-VERSION.
-If NO-REFRESH is non-nil, the available package lists will not be
-re-downloaded in order to locate PACKAGE."
-  (if (package-installed-p package min-version)
-      t
-    (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
-
-(eval-when-compile
-  (require-package 'use-package)
-  (require 'use-package))
 
 (use-package server
   :ensure t
