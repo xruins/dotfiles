@@ -6,7 +6,7 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-
+;; foundamental settings
 (use-package server
   :ensure t
   :config
@@ -36,19 +36,11 @@
       scroll-preserve-screen-position 1)
 (setq-default indent-tabs-mode nil)
 
-(use-package solarized-theme
-  :ensure t
-  :custom
-  (solarized-use-variable-pitch nil)
-  (x-underline-at-descent-line t)
-  :init
-  (load-theme 'solarized-dark t))
-
-;;;; modifier keys
+;; modifier key
 (when (eq system-type 'darwin)
   (setq ns-command-modifier (quote meta)))
 
-;;;; keybinds
+;; keybinds
 (global-set-key (kbd "C-h") 'left-char)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-k") 'previous-line)
@@ -57,96 +49,37 @@
 (define-key global-map (kbd "C-z") 'other-window)
 (define-key global-map (kbd "C-t") 'other-window)
 
-(use-package linum
-  :ensure t
-  :init
-  (global-linum-mode 1)
-  (setq linum-format "%4d ")
-  )
-
-(use-package yasnippet
-  :ensure t
-  :diminish yas-minor-mode
-  :bind (("C-c y i" . yas-insert-snippet)
-	 ("C-c y n" . yas-new-snippet)
-	 ("C-c y v" . yas-visit-snippet-file))
-  :init
-  (add-hook 'after-init-hook 'yas-global-mode)
-  :config
-  (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets/"))
-  (setq yas-prompt-functions '(yas-ido-prompt))
-  :commands
-  (yas-minor-mode yas-global-mode))
-
-
-(use-package company
-  :ensure t
-  :config
-  (setq company-transformers '(company-sort-by-backend-importance))
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 3) 
-  (setq company-selection-wrap-around t)
-  (setq completion-ignore-case t)
-  (setq company-dabbrev-downcase nil)
-  (setq company-tooltip-align-annotations t)
-  (setq company-tooltip-flip-when-above t)
-  (define-key company-active-map (kbd "C-n") 'company-select-next) ;; C-n, C-pで補完候補を次/前の候補を選択
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-search-map (kbd "C-n") 'company-select-next)
-  (define-key company-search-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-j") 'company-select-next) ;; C-n, C-pで補完候補を次/前の候補を選択
-  (define-key company-active-map (kbd "C-k") 'company-select-previous)
-  (define-key company-search-map (kbd "C-j") 'company-select-next)
-  (define-key company-search-map (kbd "C-k") 'company-select-previous)
-  (global-company-mode)
-  :ensure t
-  )
-(use-package flyspell
-  :if
-  (executable-find "aspell")
-  :config
-  (setq ispell-program-name "aspell" ; use aspell instead of ispell
-        ispell-extra-args '("--sug-mode=ultra"))
-  (add-hook 'text-mode-hook #'flyspell-mode)
-  (add-hook 'prog-mode-hook #'flyspell-prog-mode))
-
-(use-package flycheck
-  :ensure t
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
-
-(use-package uniquify
-  :config
-  (setq uniquify-buffer-name-style 'forward)
-  (setq uniquify-separator "/")
-  ;; rename after killing uniquified
-  (setq uniquify-after-kill-buffer-p t)
-  ;; don't muck with special buffers
-  (setq uniquify-ignore-buffers-re "^\\*"))
-
-(use-package anzu
-  :ensure t
-  :bind (("C-r" . anzu-query-replace)
-         ("C-S-r" . anzu-query-replace-regexp))
-  :config
-  (global-anzu-mode))
-
-(use-package rainbow-delimiters
+;; major modes
+(use-package json-mode
   :ensure t)
 
-(use-package rainbow-mode
+(use-package fish-mode
+  :ensure t
+  :mode ("\\.fish\\'" . fish-mode)
+  :hook (fish-mode . (lambda ()
+                       (add-hook 'before-save-hook 'fish_indent-before-save))))
+
+(use-package protobuf-mode
+  :ensure t)
+
+(use-package yaml-mode
+  :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :mode (("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode))
+  :config
+  (setq markdown-fontify-code-blocks-natively t))
+
+(use-package elixir-mode
   :ensure t
   :config
-  (add-hook 'prog-mode-hook #'rainbow-mode))
+  (add-hook 'elixir-mode #'subword-mode))
 
-(use-package magit
+(use-package dockerfile-mode
   :ensure t
-  :bind (("C-x g" . magit-status)))
-
-(use-package git-timemachine
-  :ensure t
-  :bind (("s-g" . git-timemachine)))
+  :mode "/Dockerfile\\'")
 
 (use-package ruby-mode
   :config
@@ -185,7 +118,72 @@
     :ensure t)
   (use-package golint
     :ensure t)
-  (add-hook 'before-save-hook 'lsp-format-buffer))
+  (add-hook 'before-save-hook 'lsp-format-buffer)
+  )
+
+
+;; minor modes
+(use-package linum
+  :ensure t
+  :init
+  (global-linum-mode 1)
+  (setq linum-format "%4d ")
+  )
+
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :bind (("C-c y i" . yas-insert-snippet)
+	 ("C-c y n" . yas-new-snippet)
+	 ("C-c y v" . yas-visit-snippet-file))
+  :init
+  (add-hook 'after-init-hook 'yas-global-mode)
+  :config
+  (setq yas-snippet-dirs
+	'("~/.emacs.d/snippets/"))
+  (setq yas-prompt-functions '(yas-ido-prompt))
+  :commands
+  (yas-minor-mode yas-global-mode))
+
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+(use-package flycheck-popup-tip
+  :ensure t
+  :config
+  (with-eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode))
+  )
+
+(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'forward)
+  (setq uniquify-separator "/")
+  ;; rename after killing uniquified
+  (setq uniquify-after-kill-buffer-p t)
+  ;; don't muck with special buffers
+  (setq uniquify-ignore-buffers-re "^\\*"))
+
+(use-package anzu
+  :ensure t
+  :bind (("C-r" . anzu-query-replace)
+         ("C-S-r" . anzu-query-replace-regexp))
+  :config
+  (global-anzu-mode))
+
+(use-package rainbow-delimiters
+  :ensure t)
+
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
+
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
 
 (use-package lsp-mode
   :custom
@@ -283,44 +281,6 @@
   (show-paren-style 'mixed)
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t))
-
-(use-package volatile-highlights
-  :diminish
-  :hook
-  (after-init . volatile-highlights-mode)
-  :custom-face
-  (vhl/default-face ((nil (:foreground "#FF3333" :background "#FFCDCD")))))
-
-(use-package json-mode
-  :ensure t)
-
-(use-package fish-mode
-  :ensure t
-  :mode ("\\.fish\\'" . fish-mode)
-  :hook (fish-mode . (lambda ()
-                       (add-hook 'before-save-hook 'fish_indent-before-save))))
-
-(use-package protobuf-mode
-  :ensure t)
-
-(use-package yaml-mode
-  :ensure t)
-
-(use-package markdown-mode
-  :ensure t
-  :mode (("\\.md\\'" . gfm-mode)
-         ("\\.markdown\\'" . gfm-mode))
-  :config
-  (setq markdown-fontify-code-blocks-natively t))
-
-(use-package elixir-mode
-  :ensure t
-  :config
-  (add-hook 'elixir-mode #'subword-mode))
-
-(use-package dockerfile-mode
-  :ensure t
-  :mode "/Dockerfile\\'")
 
 ;;; init.el ends here
 (custom-set-variables
