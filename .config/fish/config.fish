@@ -24,6 +24,11 @@ if type -q anyenv
     eval (anyenv init - | source)
 end
 
+# direnv
+if type -q direnv
+    eval (direnv hook fish)
+end
+
 # golang
 set -U GOPATH $HOME
 set -U fish_user_paths $fish_user_paths $GOPATH/bin
