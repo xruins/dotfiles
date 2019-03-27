@@ -19,6 +19,10 @@ end
 set -U fish_user_paths $fish_user_paths $HOME/bin
 set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
 
+# golang
+set -x -U GOPATH $HOME
+set -U fish_user_paths $fish_user_paths $GOPATH/bin
+
 # anyenv
 if type -q anyenv
     eval (anyenv init - | source)
