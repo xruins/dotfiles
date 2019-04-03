@@ -119,6 +119,7 @@
   (use-package golint
     :ensure t)
   (add-hook 'before-save-hook 'lsp-format-buffer)
+  (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
 
@@ -298,4 +299,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c")))))
