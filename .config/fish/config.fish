@@ -18,6 +18,7 @@ end
 # PATH
 set -U fish_user_paths $fish_user_paths $HOME/bin
 set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
+set -U fish_user_paths $fish_user_paths /snap/bin
 
 # anyenv
 if type -q anyenv
