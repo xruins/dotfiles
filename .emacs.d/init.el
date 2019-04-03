@@ -313,6 +313,17 @@
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
+(use-package counsel
+  :ensure t
+  :bind
+  (:map counsel-mode-map
+        ("C-c g" . counsel-git)
+        ("C-c j" . counsel-git-grep)
+        ("C-c a" . counsel-ag)
+        )
+  :hook
+  (prog-mode . counsel-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -320,9 +331,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (golint company-go dockerfile-mode elixir-mode markdown-mode yaml-mode protobuf-mode fish-mode json-mode go-mode git-timemachine magit rainbow-mode rainbow-delimiters anzu flycheck company yasnippet solarized-theme use-package)))
- '(solarized-use-variable-pitch nil)
- '(x-underline-at-descent-line t t))
+    (which-key yasnippet yaml-mode use-package rainbow-mode rainbow-delimiters protobuf-mode markdown-mode magit json-mode go-mode git-gutter flycheck-popup-tip fish-mode elixir-mode dockerfile-mode anzu amx))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
