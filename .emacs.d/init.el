@@ -98,9 +98,25 @@
 	("M-." . godef-jump)
 	("C-c C-r" . go-remove-unused-imports)
 	("C-c i" . go-goto-imports)
-	("C-c d" . godoc)
+        ("C-c d" . godoc)
 	("C-c l" . golint))
   :init
+  (add-hook 'go-mode-hook (lambda()
+                            (company-mode)
+                            (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+                            (setq company-idle-delay 0) ; 遅延なしにすぐ表示
+                            (setq company-minimum-prefix-length 3) ; デフォルトは4
+                            (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+                            (setq completion-ignore-case t)
+                            (setq company-dabbrev-downcase nil)
+                            (global-set-key (kbd "C-M-i") 'company-complete)
+                            ;; C-n, C-pで補完候補を次/前の候補を選択
+                            (define-key company-active-map (kbd "C-n") 'company-select-next)
+                            (define-key company-active-map (kbd "C-p") 'company-select-previous)
+                            (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ;; C-sで絞り込む
+                            (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
+                            (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
+                            ))	
   (add-hook 'go-mode-hook
 	    (lambda ()
 	      (setq tab-width 4)
@@ -109,7 +125,7 @@
 	      (if (not (string-match "go" compile-command))
 		  (set (make-local-variable 'compile-command)
 		       "go generate && go build -v && go test -v && go vet"))
-	      ;;(company-mode)
+	      (company-mode)
 	      ;;(go-guru-hl-identifier-mode)
 	      )
 	    )
@@ -126,6 +142,7 @@
 ;; minor modes
 (use-package linum
   :ensure t
+  :defer t
   :init
   (global-linum-mode 1)
   (setq linum-format "%4d ")
@@ -184,7 +201,7 @@
 
 (use-package magit
   :ensure t
-  :bind (("C-x g" . magit-status)))
+  :bind (("C-c m" . magit-status)))
 
 (use-package lsp-mode
   :custom
@@ -259,21 +276,21 @@
     (company-lsp-async t)
     (company-lsp-enable-recompletion nil)))
 
-(use-package highlight-indent-guides
-  :diminish
-  :hook
-  ((prog-mode yaml-mode) . highlight-indent-guides-mode)
-  :custom
-  (highlight-indent-guides-auto-enabled t)
-  (highlight-indent-guides-responsive t)
-  (highlight-indent-guides-method 'character)) ; column
+;; (use-package highlight-indent-guides
+;;   :diminish
+;;   :hook
+;;   ((prog-mode yaml-mode) . highlight-indent-guides-mode)
+;;   :custom
+;;   (highlight-indent-guides-auto-enabled t)
+;;   (highlight-indent-guides-responsive t)
+;;   (highlight-indent-guides-method 'character)) ; column
 
 (use-package rainbow-delimiters
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
 (use-package paren
-  :ensure nil
+  :ensure t
   :hook
   (after-init . show-paren-mode)
   :custom-face
@@ -283,7 +300,19 @@
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t))
 
-;;; init.el ends here
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :hook (after-init . which-key-mode))
+
+(use-package amx
+  :ensure t)
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
