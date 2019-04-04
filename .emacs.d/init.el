@@ -44,10 +44,10 @@
   (setq ns-command-modifier (quote meta)))
 
 ;; keybinds
-(global-set-key (kbd "C-h") 'left-char)
-(global-set-key (kbd "C-j") 'next-line)
-(global-set-key (kbd "C-k") 'previous-line)
-(global-set-key (kbd "C-l") 'right-char)
+(define-key global-map (kbd "C-h") 'left-char)
+(define-key global-map (kbd "C-j") 'next-line)
+(define-key global-map (kbd "C-k") 'previous-line)
+(define-key global-map (kbd "C-l") 'right-char)
 
 (define-key global-map (kbd "C-z") 'other-window)
 (define-key global-map (kbd "C-t") 'other-window)
