@@ -14,6 +14,9 @@
     (server-start))
   )
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
+
 (menu-bar-mode -1)
 (show-paren-mode 1)
 (setq show-paren-style 'mixed)
@@ -331,5 +334,10 @@
     '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode))
   )
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
+(use-package git-gutter-fringe
+  :ensure t
+  :config
+  (set-face-foreground 'git-gutter-fr:modified "yellow")
+  (set-face-foreground 'git-gutter-fr:added    "blue")
+  (set-face-foreground 'git-gutter-fr:deleted  "white")
+  )
