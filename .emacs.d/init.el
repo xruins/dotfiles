@@ -135,20 +135,19 @@
   :config
   (use-package company-go
     :ensure t)
-  (use-package golint
+  (Use-package golint
     :ensure t)
+  (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
-
 ;; minor modes
 (use-package linum
-  :ensure t
-  :defer t
-  :init
-  (global-linum-mode 1)
-  (setq linum-format "%4d ")
-  )
+   :ensure t
+   :hook
+   (prog-mode . linum-mode)
+   :config
+   (setq linum-format "%4d "))
 
 (use-package yasnippet
   :ensure t
@@ -174,8 +173,7 @@
   :ensure t
   :config
   (with-eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode))
-  )
+    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)))
 
 (use-package uniquify
   :config
@@ -198,12 +196,13 @@
 
 (use-package rainbow-mode
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-mode))
+  :hook
+  (prog-mode . rainbow-mode))
 
 (use-package magit
   :ensure t
-  :bind (("C-c m" . magit-status)))
+  :bind
+  ("C-c m" . magit-status))
 
 (use-package lsp-mode
   :custom
@@ -334,10 +333,4 @@
     '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode))
   )
 
-(use-package git-gutter-fringe
-  :ensure t
-  :config
-  (set-face-foreground 'git-gutter-fr:modified "yellow")
-  (set-face-foreground 'git-gutter-fr:added    "blue")
-  (set-face-foreground 'git-gutter-fr:deleted  "white")
-  )
+
