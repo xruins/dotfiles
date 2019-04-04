@@ -134,7 +134,6 @@
     :ensure t)
   (use-package golint
     :ensure t)
-  (add-hook 'before-save-hook 'lsp-format-buffer)
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
