@@ -135,7 +135,7 @@
   :config
   (use-package company-go
     :ensure t)
-  (Use-package golint
+  (use-package golint
     :ensure t)
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'before-save-hook 'gofmt-before-save)
