@@ -138,7 +138,6 @@
   (use-package golint
     :ensure t)
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
 ;; minor modes
