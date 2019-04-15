@@ -319,7 +319,9 @@
   :ensure t
   :config
   (with-eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode))
-  )
+    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)))
 
-
+(use-package color-theme-solarized
+  :ensure t
+  :config
+  (load-theme 'solarized t))
