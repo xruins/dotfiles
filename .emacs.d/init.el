@@ -140,13 +140,19 @@
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
+(use-package company
+             :ensure t
+             :config
+             (add-hook 'prog-mode-hook 'company-mode)
+             )
+
 ;; minor modes
 (use-package linum
-   :ensure t
-   :hook
-   (prog-mode . linum-mode)
-   :config
-   (setq linum-format "%4d "))
+  :ensure t
+  :hook
+  (prog-mode . linum-mode)
+  :config
+  (setq linum-format "%4d "))
 
 (use-package yasnippet
   :ensure t
