@@ -135,8 +135,9 @@
 	    )
   :config
   (use-package go-eldoc
-  :config
-  (add-hook 'go-mode-hook 'go-eldoc-setup))
+    :ensure t
+    :config
+    (add-hook 'go-mode-hook 'go-eldoc-setup))
   (use-package flycheck-golangci-lint
     :ensure t
     :hook (go-mode . flycheck-golangci-lint-setup))
