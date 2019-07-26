@@ -13,6 +13,7 @@ end
 function fish_user_key_bindings
     bind \cr fzf_select_history
     bind \cf fzf_change_directory
+    bind \co fzf_open_with_emacs
 end
 
 # PATH
