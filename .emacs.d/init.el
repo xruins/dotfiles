@@ -89,6 +89,18 @@
   (setq ruby-insert-encoding-magic-comment nil)
   (add-hook 'ruby-mode-hook #'subword-mode))
 
+(use-package counsel
+  :ensure t
+  :init
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-q") 'counsel-rg)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+  )
+
 (use-package go-mode
   :ensure t
   :defer t
