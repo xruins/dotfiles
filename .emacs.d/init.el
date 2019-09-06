@@ -218,11 +218,6 @@
 (use-package rainbow-delimiters
   :ensure t)
 
-(use-package rainbow-mode
-  :ensure t
-  :hook
-  (prog-mode . rainbow-mode))
-
 (use-package magit
   :ensure t
   :bind
