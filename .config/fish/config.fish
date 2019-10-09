@@ -18,15 +18,17 @@ end
 
 # PATH
 set -x fish_user_paths $fish_user_paths $HOME/bin
-set -x fish_user_paths $fish_user_paths $HOME/.anyenv/bin
-set -x fish_user_paths $fish_user_paths /snap/bin
+
+if test -d /snap/bin
+    set -x fish_user_paths $fish_user_paths /snap/bin
+end
 
 # golang
 set -x GOPATH $HOME
-set -x fish_user_paths $fish_user_paths $GOPATH/bin
 
 # anyenv
 if type -q anyenv
+    set -x fish_user_paths $fish_user_paths $HOME/.anyenv/bin
     eval (anyenv init - | source)
 end
 
