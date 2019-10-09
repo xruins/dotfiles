@@ -36,10 +36,10 @@ ra = remote add
 rb = rebase
 rd = rm $(git ls-files --deleted)
 ri = rebase -i
-rr = remote rm
-rs = remote set-url
 st = status
 tb = topic-branch
+sw = switch
+rs = restore
 
 [help]
 autocorrect = 1
