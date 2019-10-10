@@ -17,16 +17,18 @@ function fish_user_key_bindings
 end
 
 # PATH
-set -U fish_user_paths $fish_user_paths $HOME/bin
-set -U fish_user_paths $fish_user_paths $HOME/.anyenv/bin
-set -U fish_user_paths $fish_user_paths /snap/bin
+set -x fish_user_paths $fish_user_paths $HOME/bin
+
+if test -d /snap/bin
+    set -x fish_user_paths $fish_user_paths /snap/bin
+end
 
 # golang
-set -x -U GOPATH $HOME
-set -U fish_user_paths $fish_user_paths $GOPATH/bin
+set -x GOPATH $HOME
 
 # anyenv
 if type -q anyenv
+    set -x fish_user_paths $fish_user_paths $HOME/.anyenv/bin
     eval (anyenv init - | source)
 end
 
@@ -37,14 +39,14 @@ end
 
 # Google Cloud SDK
 if test -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
-    set -U GCLOUD_ROOT_PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+    set -x GCLOUD_ROOT_PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
 else if test -d ~/google-cloud-sdk
-    set -U GCLOUD_ROOT_PATH ~/google-cloud-sdk
+    set -x GCLOUD_ROOT_PATH ~/google-cloud-sdk
 else if test -d /usr/share/google-cloud-sdk/
-    set -U GCLOUD_ROOT_PATH /usr/share/google-cloud-sdk
+    set -x GCLOUD_ROOT_PATH /usr/share/google-cloud-sdk
 end
 if test -d $GCLOUD_ROOT_PATH/platform/google_appengine
-    set -u fish_user_paths $fish_user_paths $GCLOUD_ROOT_PATH/platform/google_appengine
+    set -x fish_user_paths $fish_user_paths $GCLOUD_ROOT_PATH/platform/google_appengine
 end
 
 
