@@ -56,5 +56,8 @@ protocol = https
 [credential]
 helper = osxkeychain 2>/dev/null
 helper = git-credential-libsecret 2>/dev/null
-helper = gnomekeyring 2>/dev/null
-helper = cache --timeout 86400
+helper = gnome-keyring 2>/dev/null
+helper = cache
+
+[credential "https://github.com"]
+username = xruins
