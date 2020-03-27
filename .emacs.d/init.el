@@ -268,14 +268,5 @@
   (with-eval-after-load 'flycheck
     '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)))
 
-(use-package color-theme-solarized
-  :ensure t
-  :config
-  (load-theme 'solarized t)
-  :init
-  (set-frame-parameter nil 'background-mode 'dark)
-  (set-terminal-parameter nil 'background-mode 'dark)
-  )
-
 (provide 'init)
 ;;; init.el ends here
