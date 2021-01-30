@@ -1,10 +1,16 @@
 ;; initialize use-package
 (require 'package)
-(add-to-list 'package-archives '("melpa"."http://melpa.org/packages/"))
+
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
-(unless package-archive-contents (package-refresh-contents))
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+
+(if (not (package-installed-p 'use-package))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+(require 'use-package)
+
 
 ;; foundamental settings
 (use-package server
@@ -13,9 +19,6 @@
   (unless (server-running-p)
     (server-start))
   )
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
 
 (menu-bar-mode -1)
 (show-paren-mode 1)
@@ -32,11 +35,18 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize)
+  )
+
 (setq ring-bell-function 'ignore)
 
 (setq scroll-margin 0
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
+
 (setq-default indent-tabs-mode nil)
 
 ;; modifier key
@@ -51,6 +61,63 @@
 
 (define-key global-map (kbd "C-z") 'other-window)
 (define-key global-map (kbd "C-t") 'other-window)
+
+;; lsp / company
+(use-package lsp-mode
+  :ensure t
+  :custom ((lsp-inhibit-message t)
+           (lsp-message-project-root-warning t)
+           (create-lockfiles nil)
+           (lsp-prefer-flymake 'flymake))
+  :hook
+  (prog-major-mode . lsp-prog-major-mode-enable)
+  (go-mode . lsp-buffer-deferred)
+  :commands (lsp lsp-deferred)
+  :config
+  (setq lsp-response-timeout 5))
+
+(use-package company-lsp
+  :ensure t
+  :after (lsp-mode company)
+  :init (push 'company-lsp company-backends))
+
+(use-package company
+  :ensure t
+  :config
+  (global-company-mode)
+  ;; Optionally enable completion-as-you-type behavior.
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (setq completion-ignore-case t)
+  (setq company-dabbrev-downcase nil)
+  (setq company-selection-wrap-around t))
+
+(use-package lsp-ui
+  :ensure t
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'at-point) ;; top, bottom, or at-point
+  (lsp-ui-doc-max-width 150)
+  (lsp-ui-doc-max-height 30)
+  (lsp-ui-doc-use-childframe t)
+  (lsp-ui-doc-use-webkit t)
+  
+  ;; lsp-ui-flycheck
+  (lsp-ui-flycheck-enable nil)
+  
+  ;; lsp-ui-peek
+  (lsp-ui-peek-enable t)
+  (lsp-ui-peek-peek-height 20)
+  (lsp-ui-peek-list-width 50)
+  (lsp-ui-peek-fontify 'on-demand) ;; never, on-demand, or always
+  ;; lsp-ui-imenu
+  (lsp-ui-imenu-enable t)
+  (lsp-ui-imenu-kind-position 'top)
+  ;; lsp-ui-sideline
+  (lsp-ui-sideline-enable nil)
+  )
 
 ;; major modes
 (use-package json-mode
@@ -89,116 +156,14 @@
   (setq ruby-insert-encoding-magic-comment nil)
   (add-hook 'ruby-mode-hook #'subword-mode))
 
-(use-package counsel
-  :ensure t
-  :init
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-q") 'counsel-rg)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-  )
-
 (use-package go-mode
   :ensure t
-  :defer t
-  :mode
-  ("\\.go$" . go-mode)
-  :commands
-  (go-mode)
-  :bind
-  (:map go-mode-map
-	("M-." . godef-jump)
-        ("M-," . pop-tag-mark)
-	("C-c C-r" . go-remove-unused-imports)
-	("C-c i" . go-goto-imports)
-        ("C-c d" . godoc)
-	("C-c l" . golint))
-  :init
-  (add-hook 'go-mode-hook (lambda()
-                            (company-mode)
-                            (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
-                            (setq company-idle-delay 0) ; 遅延なしにすぐ表示
-                            (setq company-minimum-prefix-length 3) ; デフォルトは4
-                            (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
-                            (setq completion-ignore-case t)
-                            (setq company-dabbrev-downcase nil)
-                            (global-set-key (kbd "C-M-i") 'company-complete)
-                            ;; C-n, C-pで補完候補を次/前の候補を選択
-                            (define-key company-active-map (kbd "C-n") 'company-select-next)
-                            (define-key company-active-map (kbd "C-p") 'company-select-previous)
-                            (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ;; C-sで絞り込む
-                            (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
-                            (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
-                            ))
-  (add-hook 'go-mode-hook
-	    (lambda ()
-	      (setq tab-width 4)
-	      (setq c-basic-offset 4)
-	      (setq indent-tabs-mode t)
-	      (if (not (string-match "go" compile-command))
-		  (set (make-local-variable 'compile-command)
-		       "go generate && go build -v && go test -v && go vet"))
-	      (company-mode)
-	      ;;(go-guru-hl-identifier-mode)
-	      )
-	    )
+  :commands go-mode
   :config
-  (use-package go-eldoc
-    :ensure t
-    :config
-    (add-hook 'go-mode-hook 'go-eldoc-setup))
-  (use-package flycheck-golangci-lint
-    :ensure t
-    :hook (go-mode . flycheck-golangci-lint-setup))
-  (use-package company-go
-    :ensure t)
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  )
-
-(use-package company
-             :ensure t
-             :config
-             (add-hook 'prog-mode-hook 'company-mode)
-             )
-
-;; minor modes
-(use-package linum
-  :ensure t
-  :hook
-  (prog-mode . linum-mode)
-  :config
-  (setq linum-format "%4d "))
-
-(use-package yasnippet
-  :ensure t
-  :diminish yas-minor-mode
-  :bind (("C-c y i" . yas-insert-snippet)
-	 ("C-c y n" . yas-new-snippet)
-	 ("C-c y v" . yas-visit-snippet-file))
-  :init
-  (add-hook 'after-init-hook 'yas-global-mode)
-  :config
-  (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets/"))
-  (setq yas-prompt-functions '(yas-ido-prompt))
-  :commands
-  (yas-minor-mode yas-global-mode))
-
-(use-package flycheck
-  :ensure t
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
-
-(use-package flycheck-popup-tip
-  :ensure t
-  :config
-  (with-eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)))
-
+  ;; (setq gofmt-command "goimports")
+  ;; (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-mode-hook #'lsp))
+   
 (use-package uniquify
   :config
   (setq uniquify-buffer-name-style 'forward)
@@ -215,58 +180,37 @@
   :config
   (global-anzu-mode))
 
-(use-package rainbow-delimiters
-  :ensure t)
-
 (use-package magit
   :ensure t
   :bind
   ("C-c m" . magit-status))
 
-(use-package rainbow-delimiters
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
+;; (use-package paren
+;;   :ensure t
+;;   :hook
+;;   (after-init . show-paren-mode)
+;;   :custom-face
+;;   (show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c"))))
+;;   :custom
+;;   (show-paren-style 'mixed)
+;;   (show-paren-when-point-inside-paren t)
+;;   (show-paren-when-point-in-periphery t))
 
-(use-package paren
+
+(set-terminal-parameter nil 'background-mode 'light)
+
+(use-package solarized-theme
   :ensure t
-  :hook
-  (after-init . show-paren-mode)
-  :custom-face
-  (show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c"))))
-  :custom
-  (show-paren-style 'mixed)
-  (show-paren-when-point-inside-paren t)
-  (show-paren-when-point-in-periphery t))
+  :init
+  (load-theme 'solarized-dark t))
 
-(use-package which-key
-  :ensure t
-  :diminish which-key-mode
-  :hook (after-init . which-key-mode))
+(let ((frame-background-mode 'light)) (frame-set-background-mode nil))
 
-(use-package amx
-  :ensure t)
-
-(use-package rainbow-delimiters
-  :ensure t
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
-
-(use-package counsel
-  :ensure t
-  :bind
-  (:map counsel-mode-map
-        ("C-c g" . counsel-git)
-        ("C-c j" . counsel-git-grep)
-        ("C-c a" . counsel-ag)
-        )
-  :hook
-  (prog-mode . counsel-mode))
-
-(use-package flycheck-popup-tip
-  :ensure t
-  :config
-  (with-eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)))
+(defun terminal-init-screen ()  
+  "Terminal initialization function for screen."
+  ;; Use the xterm color initialization code.
+  (xterm-register-default-colors)
+  (tty-set-up-initial-frame-faces))
 
 (provide 'init)
 ;;; init.el ends here
