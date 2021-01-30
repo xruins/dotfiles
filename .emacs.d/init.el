@@ -68,18 +68,18 @@
   :custom ((lsp-inhibit-message t)
            (lsp-message-project-root-warning t)
            (create-lockfiles nil)
-           (lsp-prefer-flymake 'flymake))
+           (lsp-prefer-flymake 'flymake)
+           (lsp-auto-guess-root t)
+           (lsp-response-timeout 5)
+           )
   :hook
   (prog-major-mode . lsp-prog-major-mode-enable)
   (go-mode . lsp-buffer-deferred)
+  (lsp-mode . lsp-ui-mode)
+  (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
   :commands (lsp lsp-deferred)
   :config
-  (setq lsp-response-timeout 5))
-
-(use-package company-lsp
-  :ensure t
-  :after (lsp-mode company)
-  :init (push 'company-lsp company-backends))
+  (require 'lsp-clients))
 
 (use-package company
   :ensure t
@@ -99,10 +99,10 @@
   (lsp-ui-doc-header t)
   (lsp-ui-doc-include-signature t)
   (lsp-ui-doc-position 'at-point) ;; top, bottom, or at-point
-  (lsp-ui-doc-max-width 150)
-  (lsp-ui-doc-max-height 30)
   (lsp-ui-doc-use-childframe t)
   (lsp-ui-doc-use-webkit t)
+;;  (lsp-eldoc-enable-hover t)
+;;  (lsp-eldoc-enable-hover t)
   
   ;; lsp-ui-flycheck
   (lsp-ui-flycheck-enable nil)
@@ -116,7 +116,7 @@
   (lsp-ui-imenu-enable t)
   (lsp-ui-imenu-kind-position 'top)
   ;; lsp-ui-sideline
-  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-enable t)
   )
 
 ;; major modes
