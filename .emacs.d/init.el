@@ -212,5 +212,36 @@
   (xterm-register-default-colors)
   (tty-set-up-initial-frame-faces))
 
+(if (version<= "26.0.50" emacs-version)
+    (global-display-line-numbers-mode))
+
+(use-package highlight-indent-guides
+  :ensure t
+  :diminish
+  :hook
+  ((prog-mode yaml-mode) . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-auto-enabled t)
+  (highlight-indent-guides-responsive t)
+  (highlight-indent-guides-method 'character))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook
+    (prog-mode . rainbow-delimiters-mode))
+
+(use-package git-gutter
+  :ensure t
+  :custom
+  (git-gutter:modified-sign " ")
+  (git-gutter:added-sign    " ")
+  (git-gutter:deleted-sign  " ")
+  :custom-face
+  (git-gutter:modified ((t (:background "purple"))))
+  (git-gutter:added    ((t (:background "green"))))
+  (git-gutter:deleted  ((t (:background "red"))))
+  :config  
+    (global-git-gutter-mode +1))
+
 (provide 'init)
 ;;; init.el ends here
