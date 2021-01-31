@@ -196,21 +196,14 @@
 ;;   (show-paren-when-point-inside-paren t)
 ;;   (show-paren-when-point-in-periphery t))
 
-
-(set-terminal-parameter nil 'background-mode 'light)
-
+;
 (use-package solarized-theme
   :ensure t
   :init
-  (load-theme 'solarized-dark t))
-
-(let ((frame-background-mode 'light)) (frame-set-background-mode nil))
-
-(defun terminal-init-screen ()  
-  "Terminal initialization function for screen."
-  ;; Use the xterm color initialization code.
-  (xterm-register-default-colors)
-  (tty-set-up-initial-frame-faces))
+  (load-theme 'solarized-dark t)
+  :config
+  (setq solarized-distinct-fringe-background t)
+  (setq solarized-high-contrast-mode-line t))
 
 (provide 'init)
 ;;; init.el ends here
