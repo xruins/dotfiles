@@ -185,18 +185,18 @@
   :bind
   ("C-c m" . magit-status))
 
-;; (use-package paren
-;;   :ensure t
-;;   :hook
-;;   (after-init . show-paren-mode)
-;;   :custom-face
-;;   (show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c"))))
-;;   :custom
-;;   (show-paren-style 'mixed)
-;;   (show-paren-when-point-inside-paren t)
-;;   (show-paren-when-point-in-periphery t))
+(use-package paren
+  :ensure t
+  :hook
+  (after-init . show-paren-mode)
+  :custom-face
+  (show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c"))))
+  :custom
+  (show-paren-style 'mixed)
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t))
 
-;
+
 (use-package solarized-theme
   :ensure t
   :init
@@ -237,4 +237,3 @@
     (global-git-gutter-mode +1))
 
 (provide 'init)
-;;; init.el ends here
