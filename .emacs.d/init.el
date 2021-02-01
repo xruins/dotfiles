@@ -183,32 +183,25 @@
   :bind
   ("C-c m" . magit-status))
 
-;; (use-package paren
-;;   :ensure t
-;;   :hook
-;;   (after-init . show-paren-mode)
-;;   :custom-face
-;;   (show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c"))))
-;;   :custom
-;;   (show-paren-style 'mixed)
-;;   (show-paren-when-point-inside-paren t)
-;;   (show-paren-when-point-in-periphery t))
+(use-package paren
+  :ensure t
+  :hook
+  (after-init . show-paren-mode)
+  :custom-face
+  (show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c"))))
+  :custom
+  (show-paren-style 'mixed)
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t))
 
-
-(set-terminal-parameter nil 'background-mode 'light)
 
 (use-package solarized-theme
   :ensure t
   :init
-  (load-theme 'solarized-dark t))
-
-(let ((frame-background-mode 'light)) (frame-set-background-mode nil))
-
-(defun terminal-init-screen ()  
-  "Terminal initialization function for screen."
-  ;; Use the xterm color initialization code.
-  (xterm-register-default-colors)
-  (tty-set-up-initial-frame-faces))
+  (load-theme 'solarized-dark t)
+  :config
+  (setq solarized-distinct-fringe-background t)
+  (setq solarized-high-contrast-mode-line t))
 
 (if (version<= "26.0.50" emacs-version)
     (global-display-line-numbers-mode))
@@ -242,4 +235,3 @@
     (global-git-gutter-mode +1))
 
 (provide 'init)
-;;; init.el ends here

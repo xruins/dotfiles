@@ -55,3 +55,5 @@ if test -n $GCLOUD_ROOT_PATH
         bass source $f
     end
 end
+
+alias emacs='env TERM=xterm emacs'
