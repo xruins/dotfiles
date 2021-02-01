@@ -77,20 +77,18 @@
   (go-mode . lsp-buffer-deferred)
   (lsp-mode . lsp-ui-mode)
   (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
-  :commands (lsp lsp-deferred)
-  :config
-  (require 'lsp-clients))
+  :commands (lsp lsp-deferred))
 
 (use-package company
   :ensure t
+  :custom
+  (company-idle-delay 0)
+  (company-minimum-prefix-length 1)
+  (completion-ignore-case t)
+  (company-dabbrev-downcase nil)
+  (company-selection-wrap-around t)
   :config
-  (global-company-mode)
-  ;; Optionally enable completion-as-you-type behavior.
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
-  (setq completion-ignore-case t)
-  (setq company-dabbrev-downcase nil)
-  (setq company-selection-wrap-around t))
+  (global-company-mode))
 
 (use-package lsp-ui
   :ensure t
