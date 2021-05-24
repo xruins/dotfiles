@@ -54,10 +54,7 @@ root = ~/src
 protocol = https
 
 [credential]
-helper = osxkeychain 2>/dev/null
-helper = git-credential-libsecret 2>/dev/null
-helper = gnome-keyring 2>/dev/null
-helper = cache
+helper = !gh auth git-credential
 
 [credential "https://github.com"]
 username = xruins
