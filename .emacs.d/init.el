@@ -158,8 +158,8 @@
   :ensure t
   :commands go-mode
   :config
-  ;; (setq gofmt-command "goimports")
-  ;; (add-hook 'before-save-hook 'gofmt-before-save)
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook #'lsp))
    
 (use-package uniquify
@@ -232,23 +232,6 @@
   (git-gutter:added    ((t (:background "green"))))
   (git-gutter:deleted  ((t (:background "red"))))
   :config  
-    (global-git-gutter-mode +1))
+  (global-git-gutter-mode +1))
 
 (provide 'init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (git-gutter rainbow-delimiters highlight-indent-guides solarized-theme magit anzu go-mode dockerfile-mode elixir-mode yaml-mode protobuf-mode fish-mode json-mode lsp-ui company lsp-mode exec-path-from-shell use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added ((t (:background "green"))))
- '(git-gutter:deleted ((t (:background "red"))))
- '(git-gutter:modified ((t (:background "purple"))))
- '(show-paren-match ((nil (:background "#44475a" :foreground "#f1fa8c")))))
