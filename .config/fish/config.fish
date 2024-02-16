@@ -21,6 +21,11 @@ if test -d /snap/bin
     set -x fish_user_paths $fish_user_paths /snap/bin
 end
 
+# homebrew
+if test -d /opt/homebrew/bin
+    set -x fish_user_paths $fish_user_paths /opt/homebrew/bin
+end
+
 # golang
 set -x GOPATH $HOME
 
