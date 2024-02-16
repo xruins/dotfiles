@@ -16,6 +16,7 @@ end
 # PATH
 set -x fish_user_paths $fish_user_paths $HOME/bin
 
+# snap (ubuntu)
 if test -d /snap/bin
     set -x fish_user_paths $fish_user_paths /snap/bin
 end
