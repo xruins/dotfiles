@@ -40,6 +40,7 @@ if type -q direnv
 end
 
 # Google Cloud SDK
+# (path)
 if test -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
     set -x GCLOUD_ROOT_PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
 else if test -d ~/google-cloud-sdk
@@ -47,15 +48,15 @@ else if test -d ~/google-cloud-sdk
 else if test -d /usr/share/google-cloud-sdk/
     set -x GCLOUD_ROOT_PATH /usr/share/google-cloud-sdk
 end
-if test -d $GCLOUD_ROOT_PATH/platform/google_appengine
-    set -x fish_user_paths $fish_user_paths $GCLOUD_ROOT_PATH/platform/google_appengine
+if test -f $GCLOUD_ROOT_PATH/path.fish.inc
+    source $GCLOUD_ROOT_PATH/path.fish.inc
 end
-
-
-if test -n $GCLOUD_ROOT_PATH
-    for f in $GCLOUD_ROOT_PATH/*.bash.inc
-        bass source $f
-    end
+# (completion)
+if type -q gcloud
+    # thx: https://github.com/lgathy/google-cloud-sdk-fish-completion/blob/master/completions/gcloud.fish
+    complete -f -c gcloud -a '(gcloud_sdk_argcomplete)'
 end
-
-alias emacs='env TERM=xterm emacs'
+if type -q gsutil
+    # thx: https://github.com/lgathy/google-cloud-sdk-fish-completion/blob/master/completions/gsutil.fish
+    complete -x -c gsutil -a '(gcloud_sdk_argcomplete)'
+end
