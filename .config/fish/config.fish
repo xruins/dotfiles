@@ -29,10 +29,9 @@ end
 # golang
 set -x GOPATH $HOME
 
-# anyenv
-if type -q anyenv
-    set -x fish_user_paths $fish_user_paths $HOME/.anyenv/bin
-    eval (anyenv init - | source)
+# asdf
+if test -d (brew --prefix asdf)
+    source (brew --prefix asdf)/libexec/asdf.fish
 end
 
 # direnv
