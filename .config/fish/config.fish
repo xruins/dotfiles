@@ -46,6 +46,10 @@ if test -d $GCLOUD_ROOT_PATH/platform/google_appengine
     set -x fish_user_paths $fish_user_paths $GCLOUD_ROOT_PATH/platform/google_appengine
 end
 
+# rust
+if test -d $HOME/.cargo
+    set -x fish_user_paths $fish_user_paths $HOME/.cargo/bin
+end
 
 if test -n $GCLOUD_ROOT_PATH
     for f in $GCLOUD_ROOT_PATH/*.bash.inc
