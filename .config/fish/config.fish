@@ -16,17 +16,22 @@ end
 # PATH
 set -x fish_user_paths $fish_user_paths $HOME/bin
 
+# snap (ubuntu)
 if test -d /snap/bin
     set -x fish_user_paths $fish_user_paths /snap/bin
+end
+
+# homebrew
+if test -d /opt/homebrew/bin
+    set -x fish_user_paths $fish_user_paths /opt/homebrew/bin
 end
 
 # golang
 set -x GOPATH $HOME
 
-# anyenv
-if type -q anyenv
-    set -x fish_user_paths $fish_user_paths $HOME/.anyenv/bin
-    eval (anyenv init - | source)
+# asdf
+if test -d (brew --prefix asdf)
+    source (brew --prefix asdf)/libexec/asdf.fish
 end
 
 # direnv
@@ -35,6 +40,7 @@ if type -q direnv
 end
 
 # Google Cloud SDK
+# (path)
 if test -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
     set -x GCLOUD_ROOT_PATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
 else if test -d ~/google-cloud-sdk
@@ -42,19 +48,21 @@ else if test -d ~/google-cloud-sdk
 else if test -d /usr/share/google-cloud-sdk/
     set -x GCLOUD_ROOT_PATH /usr/share/google-cloud-sdk
 end
-if test -d $GCLOUD_ROOT_PATH/platform/google_appengine
-    set -x fish_user_paths $fish_user_paths $GCLOUD_ROOT_PATH/platform/google_appengine
+if test -f $GCLOUD_ROOT_PATH/path.fish.inc
+    source $GCLOUD_ROOT_PATH/path.fish.inc
+end
+
+# (completion)
+if type -q gcloud
+    # thx: https://github.com/lgathy/google-cloud-sdk-fish-completion/blob/master/completions/gcloud.fish
+    complete -f -c gcloud -a '(gcloud_sdk_argcomplete)'
+end
+if type -q gsutil
+    # thx: https://github.com/lgathy/google-cloud-sdk-fish-completion/blob/master/completions/gsutil.fish
+    complete -x -c gsutil -a '(gcloud_sdk_argcomplete)'
 end
 
 # rust
 if test -d $HOME/.cargo
     set -x fish_user_paths $fish_user_paths $HOME/.cargo/bin
 end
-
-if test -n $GCLOUD_ROOT_PATH
-    for f in $GCLOUD_ROOT_PATH/*.bash.inc
-        bass source $f
-    end
-end
-
-alias emacs='env TERM=xterm emacs'
