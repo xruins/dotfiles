@@ -30,7 +30,9 @@ end
 set -x GOPATH $HOME
 
 # asdf
-if test -d (brew --prefix asdf)
+if test -d ~/.asdf
+    source ~/.asdf/asdf.fish
+else if type -q brew; and test -d (brew --prefix asdf)
     source (brew --prefix asdf)/libexec/asdf.fish
 end
 
