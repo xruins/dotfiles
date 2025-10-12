@@ -78,3 +78,8 @@ end
 if test -d $HOME/.cargo
     set -x fish_user_paths $fish_user_paths $HOME/.cargo/bin
 end
+
+# mise
+if test -q mise
+    mise activate fish | source
+end
