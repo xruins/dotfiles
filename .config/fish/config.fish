@@ -26,6 +26,11 @@ if test -d /opt/homebrew/bin
     set -x fish_user_paths $fish_user_paths /opt/homebrew/bin
 end
 
+# ~/.local
+if test -d $HOME/.local/bin
+    set -x fish_user_paths $fish_user_paths $HOME/.local/bin
+end
+
 # golang
 set -x GOPATH $HOME
 
