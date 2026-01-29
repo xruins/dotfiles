@@ -1,6 +1,12 @@
 [include]
 path = ~/.gitconfig.local
 
+[column]
+ui = auto
+
+[branch]
+sort = -comitterdate
+
 [color]
 ui = true
 
@@ -10,9 +16,18 @@ pager = less
 whitespace = trailing-space,space-before-tab,indent-with-non-tab
 excludesfile = ~/.gitignore
 filemode = false # ignore permission changes
+fsmonitor = true
+untrackedCache = true
 
 [diff]
+algorithm = histogram
+colorMoved = plain
 compactionHeuristic = true
+mnemonicPrefix = true
+renames = true
+
+[tag]
+sort = version:refname
 
 [alias]
 a  = add
@@ -42,10 +57,12 @@ sw = switch
 rs = restore
 
 [help]
-autocorrect = 1
+autocorrect = prompt
 
 [push]
-default = current
+default = simple
+autoSetupRemote = true
+followTags = true
 
 [ghq]
 root = ~/src
@@ -64,6 +81,6 @@ protocol = https
 [gpg]
 	format = ssh
 [user]
-	signingkey = /home/ruins/.ssh/id_ed25519.pub
+	signingkey = /home/ruins/.ssh/id_ed25519
 [init]
 	defaultBranch = main
