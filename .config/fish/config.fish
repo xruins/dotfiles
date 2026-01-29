@@ -80,6 +80,6 @@ if test -d $HOME/.cargo
 end
 
 # mise
-if test -q mise
+if type -q mise
     mise activate fish | source
 end
