@@ -6,11 +6,26 @@ if not functions -q fisher
     fish -c fisher
 end
 
+function peco-git-checkout
+    git branch -a | peco | tr -d ' ' | read branch
+    echo $branch
+    if [ $branch ]
+        if contains $branch remotes/
+            set -l b (echo $branch | awk -F'/' '{print $3}')
+            git checkout -b $b $branch
+        else
+            git checkout $branch
+        end
+    end
+    commandline -f repaint
+end
+
 # history search with peco
 function fish_user_key_bindings
     bind \cr fzf_select_history
     bind \cf fzf_change_directory
     bind \co fzf_open_with_emacs
+    bind \cb peco-git-checkout
 end
 
 # PATH
