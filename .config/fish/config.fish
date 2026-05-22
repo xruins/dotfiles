@@ -98,3 +98,8 @@ end
 if type -q mise
     mise activate fish | source
 end
+
+# load local settings
+if test -f ~/.config/fish/local.fish
+    source ~/.config/fish/local.fish
+end
