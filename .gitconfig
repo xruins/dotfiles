@@ -81,6 +81,6 @@ protocol = https
 [gpg]
 	format = ssh
 [user]
-	signingkey = /home/ruins/.ssh/id_ed25519
+	signingkey = ~/.ssh/id_ed25519
 [init]
 	defaultBranch = main
