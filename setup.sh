@@ -69,6 +69,3 @@ if [ $? -eq 0 ]; then
 else
     notice "skip to change default shell since lacks fish executable."
 fi
-
-notice "installing anyenv"
-execute_pp "git clone --depth 1 https://github.com/anyenv/anyenv ${HOME}/.anyenv"
