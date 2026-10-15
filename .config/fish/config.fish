@@ -99,6 +99,11 @@ if type -q mise
     mise activate fish | source
 end
 
+# krew
+if test -d $HOME/.krew/bin
+    set -gx PATH $PATH $HOME/.krew/bin
+end
+
 # load local settings
 if test -f ~/.config/fish/local.fish
     source ~/.config/fish/local.fish
