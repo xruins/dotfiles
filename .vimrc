@@ -57,7 +57,12 @@ set number
 
 " copy to clipboard when yank
 set guioptions+=a
-set clipboard=unnamed,autoselect
+if has('clipboard')
+  set clipboard=unnamed
+  if has('unix') && !has('mac')
+    silent! set clipboard+=autoselect
+  endif
+endif
 " press Esc twice to disable highlight
 nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
 syntax on
